@@ -82,6 +82,8 @@ How the app is created:
   more, run `Digital.jar` with an installed Java instead.
 * `resources/Info.plist` is used instead of the jpackage template. It declares the
   `*.dig` document type (`de.neemann.digital.dig`) and the minimum macOS version.
+  The name of the document type is the English text of `fileType_digitalCircuit`
+  in `lang_en.xml`, which is also used by the Open dialog.
   Since jpackage signs the bundle after writing this file, the bundle is never modified
   after signing and the signature stays valid.
 * Double clicks in the Finder are not passed to the application as command line

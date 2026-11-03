@@ -89,7 +89,14 @@ chmod 755 "$WORK/input/bin/digital"
 # jpackage only accepts versions starting with a number > 0, so the real version is
 # written to Info.plist directly and jpackage gets a placeholder, which is used only
 # in its internal files (.jpackage.xml and Digital.cfg).
-sed "s/DIGITAL_VERSION/$VERSION/g" "$MAC/resources/Info.plist" > "$WORK/resources/Info.plist"
+# The name of the *.dig document type is the English text of fileType_digitalCircuit,
+# which is also used by the Open dialog. It is escaped for XML and for sed.
+DOC_TYPE=$(xmllint --xpath 'normalize-space(/resources/string[@name="fileType_digitalCircuit"])' \
+    src/main/resources/lang/lang_en.xml)
+[ -n "$DOC_TYPE" ] || die "fileType_digitalCircuit not found in src/main/resources/lang/lang_en.xml"
+DOC_TYPE_SED=$(printf '%s' "$DOC_TYPE" | sed -e 's/&/\&amp;/g' -e 's/</\&lt;/g' -e 's/>/\&gt;/g' -e 's/[\\|&]/\\&/g')
+sed -e "s/DIGITAL_VERSION/$VERSION/g" -e "s|DIGITAL_DOCUMENT_TYPE|$DOC_TYPE_SED|g" \
+    "$MAC/resources/Info.plist" > "$WORK/resources/Info.plist"
 
 # Second launcher Contents/MacOS/digital-cli for the command line interface,
 # like "java -cp Digital.jar CLI". Headless, so no window or dock icon appears.
@@ -97,7 +104,7 @@ printf 'main-class=CLI\njava-options=-Djava.awt.headless=true\n' > "$WORK/digita
 
 # The document type itself is declared in Info.plist. The file association is only
 # passed to jpackage to copy the document icon to Contents/Resources.
-printf 'extension=dig\nmime-type=text/x-digital\ndescription=Digital Circuit\nicon=%s\n' \
+printf 'extension=dig\nmime-type=text/x-digital\nicon=%s\n' \
     "$MAC/digital-doc.icns" > "$WORK/file-association.properties"
 
 # Modules of the bundled runtime, as determined by
