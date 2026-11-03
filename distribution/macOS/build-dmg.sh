@@ -163,6 +163,9 @@ NAME="Digital-$VERSION-macOS-$ARCH"
 } > "$OUT/$NAME.build-info.txt"
 
 # Disk image with the app and a link to /Applications for installing by drag and drop.
+# The manual of hdiutil in recent macOS versions recommends "diskutil image" instead.
+# hdiutil is still used: it works, and "diskutil image" is missing on older systems
+# (create needs macOS 14) and offers no replacement for "hdiutil verify".
 STAGE="$WORK/dmg"
 mkdir "$STAGE"
 mv "$APP" "$STAGE/Digital.app"
