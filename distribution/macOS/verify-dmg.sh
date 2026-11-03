@@ -24,9 +24,18 @@ echo "sha256:     $(shasum -a 256 "$DMG" | cut -d' ' -f1)"
 hdiutil verify -quiet "$DMG" || die "checksum of the disk image is not valid"
 
 MOUNT=$(mktemp -d)
-cleanup() { hdiutil detach -quiet "$MOUNT" 2>/dev/null || true; rmdir "$MOUNT" 2>/dev/null || true; }
+ACTUAL=$(mktemp)
+ATTACHED=
+cleanup() {
+    if [ -n "$ATTACHED" ] && ! hdiutil detach -quiet "$MOUNT"; then
+        echo "warning: the disk image is still attached at $MOUNT" >&2
+    fi
+    rmdir "$MOUNT" 2>/dev/null || true
+    rm -f "$ACTUAL" "$ACTUAL.diff"
+}
 trap cleanup EXIT
 hdiutil attach -quiet -readonly -nobrowse -noautoopen -mountpoint "$MOUNT" "$DMG"
+ATTACHED=1
 
 # Exactly two entries are expected (.fseventsd is created by macOS itself).
 CONTENT=$(cd "$MOUNT" && ls -A | grep -v '^\.fseventsd$' | LC_ALL=C sort | tr '\n' ' ')
@@ -46,20 +55,16 @@ echo "bundle:     $(plutil -extract CFBundleIdentifier raw "$INFO") $(plutil -ex
 echo "signature:  valid ($(codesign -dv "$APP" 2>&1 | grep -E '^Signature=' | cut -d= -f2))"
 echo "Digital.jar sha256: $(shasum -a 256 "$APP/Contents/app/Digital.jar" | cut -d' ' -f1)"
 
-ACTUAL=$(mktemp)
 "$MAC/app-manifest.sh" "$APP" > "$ACTUAL"
 if [ -n "$MANIFEST" ]; then
     if diff -u "$MANIFEST" "$ACTUAL" > "$ACTUAL.diff"; then
         echo "manifest:   all $(wc -l < "$ACTUAL" | tr -d ' ') entries of Digital.app match $MANIFEST"
-        rm -f "$ACTUAL" "$ACTUAL.diff"
     else
         cat "$ACTUAL.diff" >&2
-        rm -f "$ACTUAL" "$ACTUAL.diff"
         die "Digital.app differs from $MANIFEST"
     fi
 else
     echo "manifest:   $(wc -l < "$ACTUAL" | tr -d ' ') entries, sha256 $(shasum -a 256 "$ACTUAL" | cut -d' ' -f1)"
     echo "            (pass a manifest as second argument to compare)"
-    rm -f "$ACTUAL"
 fi
 echo "OK"

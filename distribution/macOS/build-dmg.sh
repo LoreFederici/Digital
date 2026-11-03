@@ -11,9 +11,10 @@
 #            Digital-<version>-macOS-<arch>.build-info.txt  commit and tools used
 #            Digital-<version>-macOS-<arch>.sha256          checksums of the files above
 #
-# The build is reproducible: building the same commit with the same JDK build
-# creates an identical Digital.app, so everybody can check that a published DMG
-# was built from the published sources. See README.md in this folder.
+# The build is reproducible: building the same commit with the same JDK build on
+# the same macOS version creates an identical Digital.app, so everybody can check
+# that a published DMG was built from the published sources. On other macOS versions
+# the code signatures of the native files can differ. See README.md in this folder.
 #
 # Environment:
 #   JAVA_HOME     JDK used for compiling and packaging (default: /usr/libexec/java_home)
@@ -22,6 +23,8 @@
 #   RUN_TESTS=1   run the unit tests (mvn verify) instead of skipping them
 #
 set -euo pipefail
+# the permissions of the files in Digital.app must not depend on the user's settings
+umask 022
 
 die() { echo "error: $*" >&2; exit 1; }
 
