@@ -9,7 +9,7 @@
 #
 # To call it from any folder, create a link in a folder of the PATH:
 #   sudo mkdir -p /usr/local/bin
-#   sudo ln -sf /Applications/Digital.app/Contents/app/bin/digital /usr/local/bin/digital
+#   sudo ln -s /Applications/Digital.app/Contents/app/bin/digital /usr/local/bin/digital
 #
 set -e
 

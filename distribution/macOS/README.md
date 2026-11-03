@@ -40,12 +40,15 @@ and `java -cp Digital.jar CLI`, using the Java runtime of the app:
     digital svg -dig circuit.dig     # exports circuit.dig as SVG
     digital help                     # shows all commands
 
-To use it from any folder, link it into a folder of the `PATH` once:
+Installing the command is optional. After moving Digital to `/Applications`,
+link it into a folder of the `PATH` once to use it from any folder:
 
     sudo mkdir -p /usr/local/bin
-    sudo ln -sf /Applications/Digital.app/Contents/app/bin/digital /usr/local/bin/digital
+    sudo ln -s /Applications/Digital.app/Contents/app/bin/digital /usr/local/bin/digital
 
 The link points into the app, so it keeps working when the app is updated.
+If `/usr/local/bin/digital` already exists, `ln` refuses to replace it; check what
+is installed there before making changes. Digital does not install the link automatically.
 The commands of the command line interface run without a window or dock icon.
 
 ## Building
