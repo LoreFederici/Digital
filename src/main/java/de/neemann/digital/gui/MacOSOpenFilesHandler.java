@@ -33,7 +33,7 @@ public final class MacOSOpenFilesHandler {
     // accessed only from the event dispatch thread
     private static final ArrayList<File> PENDING = new ArrayList<>();
     private static Main mainWindow;
-    private static boolean mainWindowShowsStartupFile;
+    private static boolean mainWindowReplaceable;
     private static File startupFile;
 
     private MacOSOpenFilesHandler() {
@@ -43,7 +43,7 @@ public final class MacOSOpenFilesHandler {
      * Registers the handler at the desktop.
      * Should be called as early as possible, so that the files which caused the
      * start of the application are not lost. Files received before the main window
-     * is available are queued until {@link #setMainWindow(Main)} is called.
+     * is available are queued until {@link #setMainWindow(Main, boolean)} is called.
      */
     public static void register() {
         try {
@@ -105,12 +105,16 @@ public final class MacOSOpenFilesHandler {
      * most recently used one) is loaded, so this circuit can not replace a file
      * opened by the Finder.
      *
-     * @param main the main window
+     * @param main        the main window
+     * @param replaceable true if the main window shows what was loaded without being
+     *                    requested, e.g. the most recently used circuit. As long as it
+     *                    is unchanged, it is replaced by the first file opened by the Finder.
+     *                    False if the main window shows a file the user asked to open.
      */
-    static void setMainWindow(Main main) {
+    static void setMainWindow(Main main, boolean replaceable) {
         SwingUtilities.invokeLater(() -> {
             mainWindow = main;
-            mainWindowShowsStartupFile = true;
+            mainWindowReplaceable = replaceable;
             startupFile = main.getBaseFileName();
             ArrayList<File> files = new ArrayList<>(PENDING);
             PENDING.clear();
@@ -145,11 +149,11 @@ public final class MacOSOpenFilesHandler {
             TableDialog.openFile(f);
         else if (mainWindow == null || !mainWindow.isDisplayable()) {
             mainWindow = new Main.MainBuilder().setFileToOpen(f).build();
-            mainWindowShowsStartupFile = false;
+            mainWindowReplaceable = false;
             mainWindow.setVisible(true);
         } else if (isUnchangedStartupState()) {
             // the main window shows only what was loaded at startup, so it is replaced
-            mainWindowShowsStartupFile = false;
+            mainWindowReplaceable = false;
             mainWindow.open(f, false);
             mainWindow.toFront();
         } else
@@ -157,7 +161,7 @@ public final class MacOSOpenFilesHandler {
     }
 
     private static boolean isUnchangedStartupState() {
-        if (!mainWindowShowsStartupFile || mainWindow.isStateChanged())
+        if (!mainWindowReplaceable || mainWindow.isStateChanged())
             return false;
         File current = mainWindow.getBaseFileName();
         return current == null || current.equals(startupFile);

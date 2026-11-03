@@ -25,8 +25,9 @@ macOS 11 (Big Sur) or newer is required.
    is registered for `*.dig` files, select a `*.dig` file in the Finder, choose
    *File › Get Info*, select Digital under *Open with* and click *Change All…*.
 
-If a circuit is opened by the Finder while the main window still shows the circuit
-loaded at startup and it is unchanged, this circuit is replaced. Otherwise a new
+If a circuit is opened by the Finder while the main window still shows the unchanged
+circuit Digital loaded by itself at startup (the most recently used one), this circuit
+is replaced. Otherwise, e.g. if the main window shows a circuit you opened, a new
 window is opened.
 
 ## Command line

@@ -2231,7 +2231,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     new InitialTutorial(main).setVisible(true);
                 }
 
-                MacOSOpenFilesHandler.setMainWindow(main);
+                MacOSOpenFilesHandler.setMainWindow(main, builder.fileToOpen == null);
                 CheckForNewRelease.showReleaseDialog(main);
             });
         }
