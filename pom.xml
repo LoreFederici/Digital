@@ -75,7 +75,7 @@
 
                                             # 1. English fallback name extracted from lang_en.xml
                                             EN_NAME=$(sed -n -e 's/.*<string name="fileType_circuit">\(.*\)<\/string>.*/\1/p' src/main/resources/lang/lang_en.xml | tr -d '\r')
-                                            printf "extension=dig\nmime-type=application/x-digital\nname=%s\ndescription=%s\n" "$EN_NAME" "$EN_NAME" > target/fa.properties
+                                            printf "extension=dig\nmime-type=application/x-digital\nicon=src/main/resources/icons/digital-doc.icns\nname=%s\ndescription=%s\n" "$EN_NAME" "$EN_NAME" > target/fa.properties
 
                                             # 2. Package native macOS app bundle
                                             jpackage --type app-image \
@@ -86,14 +86,22 @@
                                                 --java-options "-splash:\$APPDIR/splash.png" \
                                                 --dest target/dist \
                                                 --file-associations target/fa.properties \
-                                                --mac-package-identifier de.neemann.digital
+                                                --mac-package-identifier de.neemann.digital \
+                                                --icon src/main/resources/icons/digital.icns
 
-                                            # 3. Explicitly set Editor role and system UTIs
+                                            # 3. Ensure icon files are present in Resources
+                                            cp src/main/resources/icons/digital.icns target/dist/Digital.app/Contents/Resources/Digital.icns
+                                            cp src/main/resources/icons/digital.icns target/dist/Digital.app/Contents/Resources/digital.icns
+                                            cp src/main/resources/icons/digital-doc.icns target/dist/Digital.app/Contents/Resources/digital-doc.icns
+
+                                            # 4. Explicitly link icons, Editor role and system UTIs in Info.plist
+                                            plutil -replace CFBundleIconFile -string "Digital.icns" target/dist/Digital.app/Contents/Info.plist
+                                            plutil -replace CFBundleDocumentTypes.0.CFBundleTypeIconFile -string "digital-doc.icns" target/dist/Digital.app/Contents/Info.plist
                                             plutil -replace CFBundleDocumentTypes.0.CFBundleTypeRole -string "Editor" target/dist/Digital.app/Contents/Info.plist
                                             plutil -replace CFBundleDocumentTypes.0.LSItemContentTypes -json '["de.neemann.digital.dig"]' target/dist/Digital.app/Contents/Info.plist
                                             plutil -replace UTExportedTypeDeclarations -json '[{"UTTypeIdentifier": "de.neemann.digital.dig", "UTTypeDescription": "Digital Circuit", "UTTypeConformsTo": ["public.data"], "UTTypeTagSpecification": {"public.filename-extension": ["dig"]}}]' target/dist/Digital.app/Contents/Info.plist
 
-                                            # 4. Dynamically generate Finder localization bundles (.lproj) from lang_*.xml
+                                            # 5. Dynamically generate Finder localization bundles (.lproj) from lang_*.xml
                                             for xml in src/main/resources/lang/lang_*.xml; do
                                                 case "$xml" in
                                                     *_ref.xml) continue ;;
@@ -109,9 +117,10 @@
                                                 esac
                                             done
 
-                                            # 5. Install to /Applications and register with LaunchServices
+                                            # 6. Install to /Applications, invalidate cache and register with LaunchServices
                                             rm -rf /Applications/Digital.app
                                             cp -R target/dist/Digital.app /Applications/
+                                            touch /Applications/Digital.app
                                             /System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -f -R /Applications/Digital.app
                                         ]]>
                                         </argument>
