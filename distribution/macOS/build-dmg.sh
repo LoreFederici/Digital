@@ -81,12 +81,19 @@ mvn -B -ntp "${MVN_SKIP[@]+"${MVN_SKIP[@]}"}" \
 # attributes, which are added e.g. by iCloud Drive if the repository is synced.
 WORK=$(mktemp -d "${TMPDIR:-/tmp}/digital-macos.XXXXXX")
 trap 'rm -rf "$WORK"' EXIT
-mkdir -p "$OUT" "$WORK/input" "$WORK/resources"
+mkdir -p "$OUT" "$WORK/input/bin" "$WORK/resources"
 cp target/Digital.jar src/main/resources/icons/splash.png "$WORK/input/"
+# the command "digital", Contents/app/bin/digital in the bundle
+cp "$MAC/digital" "$WORK/input/bin/digital"
+chmod 755 "$WORK/input/bin/digital"
 # jpackage only accepts versions starting with a number > 0, so the real version is
 # written to Info.plist directly and jpackage gets a placeholder, which is used only
 # in its internal files (.jpackage.xml and Digital.cfg).
 sed "s/DIGITAL_VERSION/$VERSION/g" "$MAC/resources/Info.plist" > "$WORK/resources/Info.plist"
+
+# Second launcher Contents/MacOS/digital-cli for the command line interface,
+# like "java -cp Digital.jar CLI". Headless, so no window or dock icon appears.
+printf 'main-class=CLI\njava-options=-Djava.awt.headless=true\n' > "$WORK/digital-cli.properties"
 
 # The document type itself is declared in Info.plist. The file association is only
 # passed to jpackage to copy the document icon to Contents/Resources.
@@ -117,13 +124,16 @@ LOCALES=en,de,es,fr,it,pt,zh
     --resource-dir "$WORK/resources" \
     --mac-package-identifier de.neemann.digital \
     --mac-package-name Digital \
+    --add-launcher digital-cli="$WORK/digital-cli.properties" \
     --file-associations "$WORK/file-association.properties" \
     --add-modules "$MODULES" \
     --jlink-options "--strip-debug --no-man-pages --no-header-files --strip-native-commands --include-locales=$LOCALES"
 
 APP="$WORK/Digital.app"
 codesign --verify --deep --strict "$APP" || die "the signature of Digital.app is not valid"
-[ -x "$APP/Contents/MacOS/Digital" ] || die "the launcher is missing in Digital.app"
+for f in MacOS/Digital MacOS/digital-cli app/bin/digital; do
+    [ -x "$APP/Contents/$f" ] || die "Contents/$f is missing in Digital.app"
+done
 [ -f "$APP/Contents/Resources/digital-doc.icns" ] || die "the document icon is missing in Digital.app"
 
 ARCH=$(lipo -archs "$APP/Contents/MacOS/Digital")

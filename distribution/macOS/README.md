@@ -29,6 +29,25 @@ If a circuit is opened by the Finder while the main window still shows the circu
 loaded at startup and it is unchanged, this circuit is replaced. Otherwise a new
 window is opened.
 
+## Command line
+
+The app contains the command `digital`, which does the same as `java -jar Digital.jar`
+and `java -cp Digital.jar CLI`, using the Java runtime of the app:
+
+    digital                          # starts the simulator
+    digital circuit.dig              # starts the simulator and opens circuit.dig
+    digital test -circ circuit.dig   # runs the tests of circuit.dig
+    digital svg -dig circuit.dig     # exports circuit.dig as SVG
+    digital help                     # shows all commands
+
+To use it from any folder, link it into a folder of the `PATH` once:
+
+    sudo mkdir -p /usr/local/bin
+    sudo ln -sf /Applications/Digital.app/Contents/app/bin/digital /usr/local/bin/digital
+
+The link points into the app, so it keeps working when the app is updated.
+The commands of the command line interface run without a window or dock icon.
+
 ## Building
 
 Requirements: macOS, git, [Maven](https://maven.apache.org/) and a JDK 17 or newer which
@@ -53,6 +72,8 @@ How the app is created:
 * `jpackage` creates `Digital.app` from `target/Digital.jar` and a Java runtime which
   contains only the modules needed by Digital (as determined by `jdeps`), the EC crypto
   provider for https and the locale data of the languages supported by Digital.
+  A second launcher `digital-cli` starts the command line interface, the script
+  `digital` chooses between the two launchers.
   Custom components loaded from jar files can only use these modules; if one needs
   more, run `Digital.jar` with an installed Java instead.
 * `resources/Info.plist` is used instead of the jpackage template. It declares the
@@ -68,8 +89,9 @@ How the app is created:
 
 Credits: the macOS app goes back to Lorenzo Federici
 ([LoreFederici/Digital](https://github.com/LoreFederici/Digital)), who created the
-app bundle with Finder support and the document icon. Diego Marini reworked the
-build to be reproducible and verifiable.
+app bundle with Finder support and the document icon and proposed the `digital`
+command. Diego Marini reworked the build to be reproducible and verifiable and
+implemented the `digital` command.
 
 ## Verifying a disk image
 
