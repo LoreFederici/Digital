@@ -71,9 +71,10 @@
                                             rm -rf target/pkg-input target/dist target/fa.properties
                                             mkdir -p target/pkg-input target/dist
                                             cp target/Digital.jar target/pkg-input/
+                                            cp src/main/resources/icons/splash.png target/pkg-input/
 
                                             # 1. English fallback name extracted from lang_en.xml
-                                            EN_NAME=$(sed -n -e 's/.*<string name="fileType_digitalCircuit">\(.*\)<\/string>.*/\1/p' src/main/resources/lang/lang_en.xml | tr -d '\r')
+                                            EN_NAME=$(sed -n -e 's/.*<string name="fileType_circuit">\(.*\)<\/string>.*/\1/p' src/main/resources/lang/lang_en.xml | tr -d '\r')
                                             printf "extension=dig\nmime-type=application/x-digital\nname=%s\ndescription=%s\n" "$EN_NAME" "$EN_NAME" > target/fa.properties
 
                                             # 2. Package native macOS app bundle
@@ -82,6 +83,7 @@
                                                 --name "Digital" \
                                                 --main-jar Digital.jar \
                                                 --main-class de.neemann.digital.gui.Main \
+                                                --java-options "-splash:\$APPDIR/splash.png" \
                                                 --dest target/dist \
                                                 --file-associations target/fa.properties \
                                                 --mac-package-identifier de.neemann.digital
@@ -97,7 +99,7 @@
                                                     *_ref.xml) continue ;;
                                                     *)
                                                         lang_code=$(basename "$xml" | sed -E 's/lang_([a-zA-Z_]+)\.xml/\1/')
-                                                        val=$(sed -n -e 's/.*<string name="fileType_digitalCircuit">\(.*\)<\/string>.*/\1/p' "$xml" | tr -d '\r')
+                                                        val=$(sed -n -e 's/.*<string name="fileType_circuit">\(.*\)<\/string>.*/\1/p' "$xml" | tr -d '\r')
                                                         if [ -n "$val" ]; then
                                                             lproj_dir="target/dist/Digital.app/Contents/Resources/${lang_code}.lproj"
                                                             mkdir -p "$lproj_dir"
