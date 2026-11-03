@@ -2163,4 +2163,5 @@ In the file howTo.md you can find more details about translations.
     <string name="key_source_dataField">stored data</string>
     <string name="err_could_not_load_rom">Could not load ROM data!</string>
     <string name="msg_fixesCreated_N">Fixtures: {0}</string>
+    <string name="fileType_digitalCircuit">Digital Circuit</string>
 </resources>

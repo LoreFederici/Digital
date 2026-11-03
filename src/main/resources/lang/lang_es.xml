@@ -2301,4 +2301,5 @@ Sin embargo, no se deben usar por encima de la línea del encabezado que contien
     <string name="key_source_file">archivo</string>
     <string name="key_source_dataField">datos almacenados</string>
     <string name="err_could_not_load_rom">¡No se pudieron cargar datos de la ROM!</string>
+    <string name="fileType_digitalCircuit">Circuito de Digital</string>
 </resources>

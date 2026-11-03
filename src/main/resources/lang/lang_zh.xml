@@ -1709,4 +1709,5 @@ In the file howTo.md you can find more details about translations.
     <string name="key_source_dataField">存储数据</string>
     <string name="err_could_not_load_rom">未能载入 ROM 数据</string>
     <string name="msg_fixesCreated_N">修正: {0}</string>
+    <string name="fileType_digitalCircuit">Digital 电路</string>
 </resources>

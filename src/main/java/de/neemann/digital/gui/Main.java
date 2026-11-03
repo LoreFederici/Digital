@@ -1649,7 +1649,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             folder = filename.getParentFile();
 
         JFileChooser fileChooser = new MyFileChooser(folder);
-        fileChooser.setFileFilter(new FileNameExtensionFilter("Circuit", "dig"));
+        fileChooser.setFileFilter(new FileNameExtensionFilter(Lang.get("fileType_digitalCircuit"), "dig"));
         return fileChooser;
     }
 

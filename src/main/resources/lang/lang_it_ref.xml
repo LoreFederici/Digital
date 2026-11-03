@@ -2174,4 +2174,5 @@ However, they must not be used above the header line listing the signal names.&l
     <string name="key_source_noData">load no data at all</string>
     <string name="key_source_dataField">stored data</string>
     <string name="err_could_not_load_rom">Could not load ROM data!</string>
+    <string name="fileType_digitalCircuit">Digital Circuit</string>
 </resources>

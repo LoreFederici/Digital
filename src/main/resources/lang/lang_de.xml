@@ -2628,4 +2628,5 @@ Sie dürfen jedoch nicht oberhalb der Kopfzeile mit den Signalnamen verwendet we
     <string name="tutorialNotNeeded">
         Tutorial überspringen
     </string>
+    <string name="fileType_digitalCircuit">Digital-Schaltung</string>
 </resources>
