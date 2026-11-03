@@ -83,13 +83,13 @@ How the app is created:
 * Double clicks in the Finder are not passed to the application as command line
   arguments but as an "open files" event. It is handled by
   `src/main/java/de/neemann/digital/gui/MacOSOpenFilesHandler.java`.
-* `Digital.icns` is the icon from the `macDist` branch. The document icon
-  `digital-doc.icns` was created by Lorenzo Federici, its source is
-  `src/main/svg/digital-doc.svg`.
+* `Digital.icns` and `digital-doc.icns` are Lorenzo Federici's macOS app and
+  document icons. Their original sources are `src/main/svg/digital.svg` and
+  `src/main/svg/digital-doc.svg`. The app icon is used only for the macOS bundle.
 
 Credits: the macOS app goes back to Lorenzo Federici
 ([LoreFederici/Digital](https://github.com/LoreFederici/Digital)), who created the
-app bundle with Finder support and the document icon and proposed the `digital`
+app bundle with Finder support and the app and document icons and proposed the `digital`
 command. Diego Marini reworked the build to be reproducible and verifiable and
 implemented the `digital` command.
 
