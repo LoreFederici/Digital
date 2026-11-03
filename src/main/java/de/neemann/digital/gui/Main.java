@@ -59,7 +59,6 @@ import de.neemann.digital.toolchain.Configuration;
 import de.neemann.digital.undo.ChangedListener;
 import de.neemann.digital.undo.Modifications;
 import de.neemann.gui.*;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -75,12 +74,10 @@ import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
@@ -93,7 +90,6 @@ import static javax.swing.JOptionPane.showInputDialog;
  * The main frame of the Digital Simulator
  * Set log level: -Dorg.slf4j.simpleLogger.defaultLogLevel=debug
  */
-
 public final class Main extends JFrame implements ClosingWindowListener.ConfirmSave, FileHistory.OpenInterface, DigitalRemoteInterface, StatusInterface, ChangedListener {
     private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
     private static final String KEY_START_STOP_ACTION = "startStop";
@@ -273,15 +269,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         addWindowListener(new ClosingWindowListener(this, this));
         addWindowListener(new WindowAdapter() {
             @Override
-            public void windowActivated(WindowEvent e) {
-                activeMainFrame = Main.this;
-            }
-
-            @Override
             public void windowClosed(WindowEvent e) {
-                if (activeMainFrame == Main.this) {
-                    activeMainFrame = null;
-                }
                 clearModelDescription(); // stop model timer if running
                 timerExecutor.shutdown();
                 library.removeListener(librarySelector);
@@ -1216,7 +1204,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     }
 
     /**
-     * Starts the tests
+     * starts the tests
      */
     public void startTests() {
         try {
@@ -1239,7 +1227,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     }
 
     /**
-     * Creates the analysis menu
+     * Creates the analyse menu
      *
      * @param menuBar the menu bar
      */
@@ -1647,7 +1635,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     }
 
     /**
-     * Stops the model
+     * stops the model
      */
     public void ensureModelIsStopped() {
         if (!stoppedState.isActive())
@@ -1661,7 +1649,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             folder = filename.getParentFile();
 
         JFileChooser fileChooser = new MyFileChooser(folder);
-        fileChooser.setFileFilter(new FileNameExtensionFilter(Lang.get("fileType_digitalCircuit"), "dig"));
+        fileChooser.setFileFilter(new FileNameExtensionFilter("Circuit", "dig"));
         return fileChooser;
     }
 
@@ -1823,7 +1811,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     }
 
     /**
-     * Updates the graphic at every modification
+     * Updates the graphic at every modification.
      */
     private class UpdateViewAtEvent implements ModelStateObserverTyped {
         private boolean stepUpdateEnabled;
@@ -2164,103 +2152,12 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     // remote interface end
     //**********************
 
-    private static final List<File> FILES_TO_OPEN_ON_START = Collections.synchronizedList(new ArrayList<>());
-    private static volatile boolean startupCompleted = false;
-    private static volatile Main activeMainFrame = null;
-
-    /**
-     * Initializes native macOS open file handling
-     */
-    private static void initMacOpenFileHandler() {
-        try {
-            Class<?> desktopClass = Class.forName("java.awt.Desktop");
-            Method isDesktopSupported = desktopClass.getMethod("isDesktopSupported");
-            if ((Boolean) isDesktopSupported.invoke(null)) {
-                Object desktop = desktopClass.getMethod("getDesktop").invoke(null);
-
-                // Verifica Action.APP_OPEN_FILE
-                Class<?> actionClass = Class.forName("java.awt.Desktop$Action");
-                @SuppressWarnings({"unchecked", "rawtypes"})
-                Object appOpenFileAction = Enum.valueOf((Class<Enum>) actionClass, "APP_OPEN_FILE");
-                Method isSupported = desktopClass.getMethod("isSupported", actionClass);
-
-                if ((Boolean) isSupported.invoke(desktop, appOpenFileAction)) {
-                    Class<?> handlerClass = Class.forName("java.awt.desktop.OpenFilesHandler");
-                    Object proxy = java.lang.reflect.Proxy.newProxyInstance(
-                            Main.class.getClassLoader(),
-                            new Class<?>[]{handlerClass},
-                            (p, method, args) -> {
-                                if ("openFiles".equals(method.getName()) && args.length == 1) {
-                                    Object event = args[0];
-                                    Method getFiles = event.getClass().getMethod("getFiles");
-                                    @SuppressWarnings("unchecked")
-                                    List<File> files = (List<File>) getFiles.invoke(event);
-                                    if (files != null && !files.isEmpty()) {
-                                        handleMacOpenFiles(files);
-                                    }
-                                }
-                                return null;
-                            });
-
-                    Method setOpenFileHandler = desktopClass.getMethod("setOpenFileHandler", handlerClass);
-                    setOpenFileHandler.invoke(desktop, proxy);
-                }
-            }
-        } catch (Throwable t) {
-            LOGGER.debug("macOS Desktop OpenFilesHandler not registered: " + t.getMessage());
-        }
-    }
-
-    private static void handleMacOpenFiles(List<File> files) {
-        synchronized (FILES_TO_OPEN_ON_START) {
-            if (!startupCompleted) {
-                FILES_TO_OPEN_ON_START.addAll(files);
-                return;
-            }
-        }
-        SwingUtilities.invokeLater(() -> {
-            for (File f : files) {
-                openFileInGui(f);
-            }
-        });
-    }
-
-    private static void openFileInGui(File file) {
-        if (file == null || !file.exists()) {
-            return;
-        }
-        if (file.getName().endsWith(".fsm")) {
-            FSMFrame.openFile(file);
-        } else if (file.getName().endsWith(".tru")) {
-            TableDialog.openFile(file);
-        } else {
-            Main target = activeMainFrame;
-            if (target != null && target.isDisplayable()) {
-                boolean isCleanUntitled = (target.filename == null && !target.isStateChanged());
-                if (isCleanUntitled) {
-                    target.open(file, false);
-                    target.toFront();
-                } else {
-                    target.open(file, true);
-                }
-            } else {
-                new MainBuilder()
-                        .setMainFrame()
-                        .setFileToOpen(file)
-                        .build()
-                        .setVisible(true);
-            }
-        }
-    }
-
     /**
      * Starts the main app
      *
      * @param args the arguments
      */
     public static void main(String[] args) {
-        initMacOpenFileHandler();
-
         Thread.setDefaultUncaughtExceptionHandler(new DigitalUncaughtExceptionHandler());
 
         if (LOGGER.isDebugEnabled())
@@ -2295,30 +2192,10 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             }
         }
 
-        if (file == null) {
-            synchronized (FILES_TO_OPEN_ON_START) {
-                if (!FILES_TO_OPEN_ON_START.isEmpty()) {
-                    file = FILES_TO_OPEN_ON_START.remove(0);
-                }
-            }
-        }
-
         if (file != null && file.getName().endsWith(".fsm")) {
-            final File f = file;
-            SwingUtilities.invokeLater(() -> {
-                FSMFrame.openFile(f);
-                synchronized (FILES_TO_OPEN_ON_START) {
-                    startupCompleted = true;
-                }
-            });
+            FSMFrame.openFile(file);
         } else if (file != null && file.getName().endsWith(".tru")) {
-            final File f = file;
-            SwingUtilities.invokeLater(() -> {
-                TableDialog.openFile(f);
-                synchronized (FILES_TO_OPEN_ON_START) {
-                    startupCompleted = true;
-                }
-            });
+            TableDialog.openFile(file);
         } else {
             MainBuilder builder = new MainBuilder().setMainFrame();
             if (file != null)
@@ -2331,7 +2208,6 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 }
 
                 Main main = builder.build();
-                activeMainFrame = main;
                 if (Settings.getInstance().get(Keys.SETTINGS_OPEN_REMOTE_PORT)) {
                     final int port = Settings.getInstance().get(Keys.SETTINGS_REMOTE_PORT);
                     LOGGER.info("open remote port " + port);
@@ -2349,16 +2225,6 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 }
 
                 CheckForNewRelease.showReleaseDialog(main);
-
-                List<File> pendingFiles;
-                synchronized (FILES_TO_OPEN_ON_START) {
-                    startupCompleted = true;
-                    pendingFiles = new ArrayList<>(FILES_TO_OPEN_ON_START);
-                    FILES_TO_OPEN_ON_START.clear();
-                }
-                for (File pendingFile : pendingFiles) {
-                    openFileInGui(pendingFile);
-                }
             });
         }
     }

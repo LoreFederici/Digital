@@ -1,28 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns="http://maven.apache.org/POM/4.0.0"
-        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <groupId>de.neemann.digital</groupId>
     <artifactId>digital</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>Digital</name>
     <url>https://github.com/hneemann/Digital</url>
+
     <properties>
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
-        <buildTimestamp>${maven.build.timestamp}</buildTimestamp>
-        <!-- cmdline-overridable timestamp for use within pom.xml -->
+        <buildTimestamp>${maven.build.timestamp}</buildTimestamp> <!-- cmdline-overridable timestamp for use within pom.xml -->
         <build.timestamp>${buildTimestamp}</build.timestamp>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <version.org.slf4j>1.7.24</version.org.slf4j>
     </properties>
+
     <distributionManagement>
         <site>
             <id></id>
             <url>file://${pom.basedir}/_stage</url>
         </site>
     </distributionManagement>
+
     <profiles>
         <profile>
             <id>no-git-rev</id>
@@ -34,140 +36,7 @@
                         <executions>
                             <execution>
                                 <id>get-the-git-infos</id>
-                                <phase>none</phase>
-                                <!-- this disables plugin -->
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>bundle-mac</id>
-            <activation>
-                <os>
-                    <family>mac</family>
-                </os>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>exec-maven-plugin</artifactId>
-                        <version>3.1.0</version>
-                        <executions>
-                            <execution>
-                                <id>create-mac-app</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>exec</goal>
-                                </goals>
-                                <configuration>
-                                    <executable>/bin/zsh</executable>
-                                    <arguments>
-                                        <argument>-c</argument>
-                                        <argument>
-                                            <![CDATA[
-                                            rm -rf target/pkg-input target/dist target/fa.properties
-                                            mkdir -p target/pkg-input target/dist
-                                            cp target/Digital.jar target/pkg-input/
-                                            cp src/main/resources/icons/splash.png target/pkg-input/
-
-                                            # 1. English fallback name extracted from lang_en.xml
-                                            EN_NAME=$(sed -n -e 's/.*<string name="fileType_circuit">\(.*\)<\/string>.*/\1/p' src/main/resources/lang/lang_en.xml | tr -d '\r')
-                                            printf "extension=dig\nmime-type=application/x-digital\nicon=src/main/resources/icons/digital-doc.icns\nname=%s\ndescription=%s\n" "$EN_NAME" "$EN_NAME" > target/fa.properties
-
-                                            # 2. Package native macOS app bundle
-                                            jpackage --type app-image \
-                                                --input target/pkg-input \
-                                                --name "Digital" \
-                                                --main-jar Digital.jar \
-                                                --main-class de.neemann.digital.gui.Main \
-                                                --java-options "-splash:\$APPDIR/splash.png" \
-                                                --dest target/dist \
-                                                --file-associations target/fa.properties \
-                                                --mac-package-identifier de.neemann.digital \
-                                                --icon src/main/resources/icons/digital.icns
-
-                                            # 3. Ensure icon files are present in Resources
-                                            cp src/main/resources/icons/digital.icns target/dist/Digital.app/Contents/Resources/Digital.icns
-                                            cp src/main/resources/icons/digital.icns target/dist/Digital.app/Contents/Resources/digital.icns
-                                            cp src/main/resources/icons/digital-doc.icns target/dist/Digital.app/Contents/Resources/digital-doc.icns
-
-                                            # 4. Explicitly link icons, Editor role and system UTIs in Info.plist
-                                            plutil -replace CFBundleIconFile -string "Digital.icns" target/dist/Digital.app/Contents/Info.plist
-                                            plutil -replace CFBundleDocumentTypes.0.CFBundleTypeIconFile -string "digital-doc.icns" target/dist/Digital.app/Contents/Info.plist
-                                            plutil -replace CFBundleDocumentTypes.0.CFBundleTypeRole -string "Editor" target/dist/Digital.app/Contents/Info.plist
-                                            plutil -replace CFBundleDocumentTypes.0.LSItemContentTypes -json '["de.neemann.digital.dig"]' target/dist/Digital.app/Contents/Info.plist
-                                            plutil -replace UTExportedTypeDeclarations -json '[{"UTTypeIdentifier": "de.neemann.digital.dig", "UTTypeDescription": "Digital Circuit", "UTTypeConformsTo": ["public.data"], "UTTypeTagSpecification": {"public.filename-extension": ["dig"]}}]' target/dist/Digital.app/Contents/Info.plist
-
-                                            # 5. Dynamically generate Finder localization bundles (.lproj) from lang_*.xml
-                                            for xml in src/main/resources/lang/lang_*.xml; do
-                                                case "$xml" in
-                                                    *_ref.xml) continue ;;
-                                                    *)
-                                                        lang_code=$(basename "$xml" | sed -E 's/lang_([a-zA-Z_]+)\.xml/\1/')
-                                                        val=$(sed -n -e 's/.*<string name="fileType_circuit">\(.*\)<\/string>.*/\1/p' "$xml" | tr -d '\r')
-                                                        if [ -n "$val" ]; then
-                                                            lproj_dir="target/dist/Digital.app/Contents/Resources/${lang_code}.lproj"
-                                                            mkdir -p "$lproj_dir"
-                                                            printf '"%s" = "%s";\n"CFBundleTypeName" = "%s";\n"Digital Circuit" = "%s";\n' "$EN_NAME" "$val" "$val" "$val" > "$lproj_dir/InfoPlist.strings"
-                                                        fi
-                                                        ;;
-                                                esac
-                                            done
-
-                                            # 6. Install to /Applications, invalidate cache and register with LaunchServices
-                                            rm -rf /Applications/Digital.app
-                                            cp -R target/dist/Digital.app /Applications/
-                                            touch /Applications/Digital.app
-                                            /System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -f -R /Applications/Digital.app
-                                        ]]>
-                                        </argument>
-                                    </arguments>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>bundle-mac-dmg</id>
-            <activation>
-                <property>
-                    <name>dmg</name>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>exec-maven-plugin</artifactId>
-                        <version>3.1.0</version>
-                        <executions>
-                            <execution>
-                                <id>create-mac-dmg</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>exec</goal>
-                                </goals>
-                                <configuration>
-                                    <executable>/bin/zsh</executable>
-                                    <arguments>
-                                        <argument>-c</argument>
-                                        <argument>
-                                            <![CDATA[
-                                            rm -rf target/dmg-staging target/dist/*.dmg
-                                            mkdir -p target/dmg-staging
-                                            cp -R target/dist/Digital.app target/dmg-staging/
-                                            ln -s /Applications target/dmg-staging/Applications
-                                            hdiutil create -volname "Digital" -srcfolder target/dmg-staging -ov -format UDZO target/dist/Digital-macOS.dmg
-                                            rm -rf target/dmg-staging
-                                        ]]>
-                                        </argument>
-                                    </arguments>
-                                </configuration>
+                                <phase>none</phase> <!-- this disables plugin -->
                             </execution>
                         </executions>
                     </plugin>
@@ -175,6 +44,7 @@
             </build>
         </profile>
     </profiles>
+
     <reporting>
         <plugins>
             <plugin>
@@ -202,8 +72,9 @@
             </plugin>
         </plugins>
     </reporting>
+
+
     <build>
-        <finalName>Digital</finalName>
         <pluginManagement>
             <plugins>
                 <plugin>
@@ -226,23 +97,36 @@
                     </compilerArgs>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.0.0-M1</version>
                 <configuration>
-                    <excludes>
-                        <!-- GUI tests are excluded because they are very fragile-->
+                    <excludes> <!-- GUI tests are excluded because they are very fragile-->
                         <exclude>**/TestInGUI.java</exclude>
                     </excludes>
-                    <systemPropertyVariables>
-                        <testdata>${basedir}/src/test/resources</testdata>
-                        <sources>${basedir}/src/main/java</sources>
-                        <buildnumber>${git.commit.id.describe}</buildnumber>
-                        <buildtime>${buildTimestamp}</buildtime>
-                    </systemPropertyVariables>
+                    <systemProperties>
+                        <property>
+                            <name>testdata</name>
+                            <value>${basedir}/src/test/resources</value>
+                        </property>
+                        <property>
+                            <name>sources</name>
+                            <value>${basedir}/src/main/java</value>
+                        </property>
+                        <property>
+                            <name>buildnumber</name>
+                            <value>${git.commit.id.describe}</value>
+                        </property>
+                        <property>
+                            <name>buildtime</name>
+                            <value>${buildTimestamp}</value>
+                        </property>
+                    </systemProperties>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
@@ -261,6 +145,7 @@
                     </archive>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>pl.project13.maven</groupId>
                 <artifactId>git-commit-id-plugin</artifactId>
@@ -279,6 +164,7 @@
                     <commitIdGenerationMode>flat</commitIdGenerationMode>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
@@ -299,11 +185,13 @@
                     </execution>
                 </executions>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>3.2.0</version>
                 <configuration>
+                    <finalName>Digital</finalName>
                     <appendAssemblyId>false</appendAssemblyId>
                     <attach>false</attach>
                     <descriptorRefs>
@@ -320,6 +208,7 @@
                             <SplashScreen-Image>icons/splash.png</SplashScreen-Image>
                         </manifestEntries>
                     </archive>
+                    <appendAssemblyId>false</appendAssemblyId>
                 </configuration>
                 <executions>
                     <execution>
@@ -394,53 +283,59 @@
                 <artifactId>maven-enforcer-plugin</artifactId>
                 <version>3.0.0-M2</version>
                 <executions>
-                    <execution>
-                        <id>enforce-property</id>
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>enforce</goal>
-                        </goals>
-                        <configuration>
-                            <rules>
-                                <requireProperty>
-                                    <property>git.commit.id.describe</property>
-                                    <message>"Project version (git.commit.id.describe) must be specified."</message>
-                                </requireProperty>
-                            </rules>
-                            <fail>true</fail>
-                        </configuration>
-                    </execution>
+                <execution>
+                    <id>enforce-property</id>
+                    <phase>process-resources</phase>
+                    <goals>
+                        <goal>enforce</goal>
+                    </goals>
+                    <configuration>
+                      <rules>
+                        <requireProperty>
+                          <property>git.commit.id.describe</property>
+                          <message>"Project version (git.commit.id.describe) must be specified."</message>
+                        </requireProperty>
+                      </rules>
+                      <fail>true</fail>
+                    </configuration>
+                  </execution>
                 </executions>
-            </plugin>
+             </plugin>
         </plugins>
     </build>
+
     <dependencies>
         <dependency>
             <groupId>com.thoughtworks.xstream</groupId>
             <artifactId>xstream</artifactId>
             <version>1.4.20</version>
         </dependency>
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.13.1</version>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>${version.org.slf4j}</version>
         </dependency>
+
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
             <version>20220924</version>
         </dependency>
+
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
             <version>${version.org.slf4j}</version>
         </dependency>
+
         <!-- https://mvnrepository.com/artifact/org.apache.xmlgraphics/fop -->
         <dependency>
             <groupId>org.apache.xmlgraphics</groupId>
@@ -448,6 +343,7 @@
             <version>2.2</version>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>net.sf.offo</groupId>
             <artifactId>fop-hyph</artifactId>
@@ -461,7 +357,9 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
     <scm>
         <connection>scm:git:file://localhost/${pom.basedir}</connection>
     </scm>
+
 </project>

@@ -5,10 +5,7 @@ This makes it very difficult for me to continue to maintain the translation.
 The only exception are simple typos.
 Pull requests in which this file is modified beyond simple typos cannot be accepted.
 In the file howTo.md you can find more details about translations.
--->
-<resources>
-    <string name="fileType_digitalCircuit">Circuito Digital</string>
-    <string name="addr">Indirizzo</string>
+--><resources>    <string name="addr">Indirizzo</string>
     <string name="tableOfContent">Indice</string>
     <string name="general">Generale</string>
     <string name="revision">Revisione</string>
@@ -57,35 +54,35 @@ In the file howTo.md you can find more details about translations.
     <string name="elem_Basic_In">Il {0}. valore di ingresso per l''operazione logica.</string>
     <string name="elem_Basic_Out">Restituisce il risultato dell'operazione logica.</string>
     <string name="elem_And_tt">Porta AND binaria. Restituisce alto se e solo se tutti gli ingressi sono impostati ad alto. Si possono anche usare i
-        bus con più bit come ingresso ed uscita. In tal caso, una AND bit-a-bit è applicata ad ogni ingresso.</string>
+	bus con più bit come ingresso ed uscita. In tal caso, una AND bit-a-bit è applicata ad ogni ingresso.</string>
     <string name="elem_NAnd_tt">Una combinazione di AND e NOT. Restituisce basso solo se tutti gli ingressi sono impostati ad alto. Se
-        uno degli ingressi è impostato a basso, l'uscita è impostata alta. Si possono anche utilizzare i bus con più
-        bit. In tal caso, una NAND bit-a-bit è applicata ad ogni ingresso.</string>
+    	uno degli ingressi è impostato a basso, l'uscita è impostata alta. Si possono anche utilizzare i bus con più
+    	bit. In tal caso, una NAND bit-a-bit è applicata ad ogni ingresso.</string>
     <string name="elem_Or_tt">Porta OR. Restituisce alto se almeno uno degli ingressi è alto. Se tutti gli ingressi sono bassi, l'uscita
-        sarà anch'essa bassa. Si possono anche utilizzare i bus con più bit. In tal caso, una OR bit-a-bit è applicata
-        ad ogni ingresso.</string>
+    	sarà anch'essa bassa. Si possono anche utilizzare i bus con più bit. In tal caso, una OR bit-a-bit è applicata
+    	ad ogni ingresso.</string>
     <string name="elem_NOr_tt">Una combinazione di OR e NOT. Restituisce basso se uno degli ingressi è alto. Se tutti gli ingressi sono bassi,
-        allora anche l'uscita sarà bassa. Si possono anche utilizzare i bus con più bit. In tal caso, una NOR bit-a-bit
-        è applicata ad ogni ingresso.</string>
+    	allora anche l'uscita sarà bassa. Si possono anche utilizzare i bus con più bit. In tal caso, una NOR bit-a-bit
+    	è applicata ad ogni ingresso.</string>
     <string name="elem_XOr_tt">Se si utilizzano solo due ingressi, l'uscita è bassa se i bit di ingresso sono uguali. Altrimenti l'uscita è alta.
-        Se si utilizzano più, allora si comporta come una cascata di porte XOR ( A XOR B XOR C = (A XOR B)
-        XOR C ). Si possono anche utilizzare i bus con più bit. In tal caso, una XOR bit-a-bit è applicata ad ogni ingresso.</string>
+    	Se si utilizzano più, allora si comporta come una cascata di porte XOR ( A XOR B XOR C = (A XOR B)
+    	XOR C ). Si possono anche utilizzare i bus con più bit. In tal caso, una XOR bit-a-bit è applicata ad ogni ingresso.</string>
     <string name="elem_XNOr_tt">Una combinazione di XOR e NOT. Gli ingressi sono combinati con l'operazione XOR. Il risultato è poi negato.
-        Si possono anche usare i bus con più bit. In tal caso, una XNOR bit-a-bit è applicata ad ogni ingresso.</string>
+    	Si possono anche usare i bus con più bit. In tal caso, una XNOR bit-a-bit è applicata ad ogni ingresso.</string>
     <string name="elem_Not_tt">Inverte il valore dell'ingresso. Un valore alto diventa basso e viceversa. Si possono anche usare i bus con
-        più bit. In tal caso, una NOT bit-a-bit è applicata ad ogni ingresso.</string>
+    	più bit. In tal caso, una NOT bit-a-bit è applicata ad ogni ingresso.</string>
     <string name="elem_Not_pin_in">L'ingresso della porta NOT.</string>
     <string name="elem_Not_pin_out">L'ingresso invertito.</string>
     <string name="elem_LookUpTable">Tabella di Lookup</string>
     <string name="elem_LookUpTable_tt">Ottiene il valore dell'uscita da una tabella memorizzata. Così, questa porta può emulare ogni
-        porta combinatoria.</string>
+    	porta combinatoria.</string>
     <string name="elem_LookUpTable_pin_in">Ingresso {0}. Questo ingresso in combinazione con tutti gli altri definisce
-        l''indirizzo del valore memorizzato che deve essere restituito.</string>
+    	l''indirizzo del valore memorizzato che deve essere restituito.</string>
     <string name="elem_LookUpTable_pin_out">Restituisce il valore memorizzato all'indirizzo impostato tramite gli ingressi.</string>
     <string name="elem_Delay">Ritardo.</string>
     <string name="elem_Delay_tt">Ritarda il segnale di un tempo di ritardo di propagazione. Ritarda un segnale per un numero di
-        ritardo della porta configurabile. Tutti gli altri componenti in Digital hanno un ritardo di
-        porta equivalente ad un ritardo di propagazione. Questo componente può essere utilizzato per
+      	ritardo della porta configurabile. Tutti gli altri componenti in Digital hanno un ritardo di
+      	porta equivalente ad un ritardo di propagazione. Questo componente può essere utilizzato per
         realizzare in qualsiasi tempo di propagazione necessario.</string>
     <string name="elem_Delay_pin_in">Ingresso del segnale su cui applicare un ritardo.</string>
     <string name="elem_Delay_pin_out">L'ingresso del segnale ritardato di un certo ritardo porta.</string>
@@ -252,7 +249,7 @@ In the file howTo.md you can find more details about translations.
     <string name="elem_VDD_tt">Una connessione alla tensione di alimentazione. L'uscita è sempre alta.</string>
     <string name="elem_VDD_pin_out">Questa uscita è sempre alta.</string>
     <string name="elem_NotConnected">Non Connesso</string>
-    <string name="elem_NotConnected_tt">Questo componente può essere usato per impostare un cavo ad alta impedenza. Se un ingresso di una porta logica è
+    <string name="elem_NotConnected_tt">Questo componente può essere usato per impostare un cavo ad alta impedenza. Se un ingresso di una porta logica è 
         impostato ad alta impedenza, il valore in lettura è indefinito. Nota che in realtà in molti casi un eccessivo
         consumo di corrente e anche danneggiamento può verificarsi se un ingresso difitale non è impostato ad alto o
         basso ma rimane scollegato.</string>
@@ -721,7 +718,7 @@ In the file howTo.md you can find more details about translations.
     <string name="elem_Break_pin_brk">Ferma la simulazione veloce se un fronte di salita viene individuato.</string>
     <string name="elem_Break_tt">Se questo componente è usato nel circuito, il bottone "Avvia fino all'interruzione" tra "Avvia" ed "Interrompi"
         è abilitato. Il bottone fa funzionare il circuito fino a quando un fronte di salita nel componente viene
-        rilevato. Questo elemento può essere usato per effettuare il debugging del circuito in qualsiasi punto di
+        rilevato. Questo elemento può essere usato per effettuare il debugging del circuito in qualsiasi punto di 
         interruzione (breakpoint). In questo modo una istruzione in assembly BRK può essere implementata. Questo
         consente l'esecuzione di un programma fino al raggiungimento di questo comando. Questa funzione può essere
         utilizzata soltanto se il clock a tempo reale è disattivato.</string>
@@ -902,7 +899,7 @@ In the file howTo.md you can find more details about translations.
         Se ci sono ancora problemi, controlla che il percorso in cui si trova l'eseguibile di ghdl sia nelle impostazioni
         di Digital.</string>
     <string name="err_iverilogNotInstalled">Il simulatore di Verilog "Icarus" non sembra essere installato. Installa IVerilog (http://iverilog.icarus.com/)
-        e riprova. Se ci sono ancora problemi, controlla che il percorso in cui si trova l'eseguibile di IVerilog sia nelle
+        e riprova. Se ci sono ancora problemi, controlla che il percorso in cui si trova l'eseguibile di IVerilog sia nelle 
         impostazioni di Digital.</string>
     <string name="err_errorLoadingHDLFile_N">Errore nel caricare il file HDL {0}</string>
     <string name="err_emptyLabelIsNotAllowed">Un'etichetta vuota non è consentita!</string>
@@ -1463,7 +1460,7 @@ In the file howTo.md you can find more details about translations.
     <string name="menu_table_N_variables">{0} variabili</string>
     <string name="menu_table_create">Crea</string>
     <string name="menu_table_createCUPL_tt">Crea un file sorgente CUPL contenente la definizione del circuito.</string>
-    <string name="menu_table_createTT2_tt">Crea un file sorgente contenente la definizione del circuito in maniera simile al formato
+    <string name="menu_table_createTT2_tt">Crea un file sorgente contenente la definizione del circuito in maniera simile al formato 
         Berkeley Logic Interchange Format (BLIF). Dopo questo, il fitter ATMEL è avviato per creare il file JEDEC.</string>
     <string name="menu_table_createCircuit">Circuito</string>
     <string name="menu_table_createCircuit_tt">Crea un circuito che riproduce le tabelle di verità.</string>
@@ -1639,7 +1636,7 @@ In the file howTo.md you can find more details about translations.
     <string name="msg_and_N_More">ed altri {0}.</string>
     <string name="msg_fileNotImportedYet">Il file non è ancora stato importato.</string>
     <string name="msg_fileExists">Il file {0} esiste già. Vuoi sovrascriverlo?</string>
-    <string name="msg_isLocked">La modifica del circuito è disabilitata. Puoi togliere il blocco a "{0} -&gt; {1} -&gt; {2}". La copia dei componenti
+    <string name="msg_isLocked">La modifica del circuito è disabilitata. Puoi togliere il blocco a "{0} -&gt; {1} -&gt; {2}". La copia dei componenti 
         e la configurazione dei diodi e FGFET con il tasto [p] è possibile anche in modalità di modifica bloccata.</string>
     <string name="msg_speedTestError">Errore durante il test di velocità.</string>
     <string name="msg_numberingWizard">Procedura Guidata di Numerazione</string>
@@ -1780,167 +1777,167 @@ In the file howTo.md you can find more details about translations.
         Se vuoi dare un nome alle espressioni, puoi usare il comento let: "let U=A+B, let V=A*B".&lt;/p&gt;</string>
     <string name="msg_testVectorHelpTitle">Test Vector</string>
     <string name="msg_testVectorHelp">&lt;html&gt;
-        &lt;head&gt;&lt;style&gt;pre { background-color: #E0E0E0;}&lt;/style&gt;&lt;/head&gt;
-        &lt;body&gt;
-        &lt;h3&gt;Generale&lt;/h3&gt;
-        &lt;p&gt;La prima linea deve contenere i nomi degli ingressi ed uscite.
-        Le linee successive devono contenere i valori che ci si aspetta.
-        Una "X" rappresenta un valore qualsiasi, una "Z" rappresenta un valore di alta impedenza.
-        Se una "C" è utilizzata, all'inizio tutti gli altri valori vengono impostati, dopodiché un ciclo di clock viene
-        eseguito e i valori sono comparati. Così è più facile verificare la logica sequenziale.
-        Una linea che inizia con un cancelletto ("#") è un commento.&lt;/p&gt;
+    &lt;head&gt;&lt;style&gt;pre { background-color: #E0E0E0;}&lt;/style&gt;&lt;/head&gt;
+    &lt;body&gt;
+&lt;h3&gt;Generale&lt;/h3&gt;
+&lt;p&gt;La prima linea deve contenere i nomi degli ingressi ed uscite.
+Le linee successive devono contenere i valori che ci si aspetta.
+Una "X" rappresenta un valore qualsiasi, una "Z" rappresenta un valore di alta impedenza.
+Se una "C" è utilizzata, all'inizio tutti gli altri valori vengono impostati, dopodiché un ciclo di clock viene
+eseguito e i valori sono comparati. Così è più facile verificare la logica sequenziale.
+Una linea che inizia con un cancelletto ("#") è un commento.&lt;/p&gt;
 
-        &lt;p&gt;Un test per un contatore a due bit potrebbe essere scritto così:&lt;/p&gt;
+&lt;p&gt;Un test per un contatore a due bit potrebbe essere scritto così:&lt;/p&gt;
 
-        &lt;pre&gt;
-        C Q1 Q0
-        0 0  0
-        C 0  1
-        C 1  0
-        C 1  1
-        C 0  0
-        &lt;/pre&gt;
+&lt;pre&gt;
+C Q1 Q0
+0 0  0
+C 0  1
+C 1  0
+C 1  1
+C 0  0
+&lt;/pre&gt;
 
-        &lt;p&gt;I test sono eseguiti da Esegui-&gt;Esegui Test.&lt;/p&gt;
-        &lt;p&gt;
-        Per rendere più semplice la creazione di questi test vector, c'è una dichiarazione "repeat([n])":
-        Se una linea inizia con quello, [n] linee di test sono generate. La variabile "n" può essere usata per generare i dati
-        di test. Con "repeat(16)", 16 linee verranno create, con n che va da 0 a 15. Se ci sono ingressi a più bit e questi devono
-        essere impostati insieme ad un valore binario, si può usare la dichiarazione "bits([bits], [value])". Questo crea [bits] bit
-        con il valore [value].&lt;/p&gt;
+&lt;p&gt;I test sono eseguiti da Esegui-&gt;Esegui Test.&lt;/p&gt;
+&lt;p&gt;
+Per rendere più semplice la creazione di questi test vector, c'è una dichiarazione "repeat([n])":
+Se una linea inizia con quello, [n] linee di test sono generate. La variabile "n" può essere usata per generare i dati
+di test. Con "repeat(16)", 16 linee verranno create, con n che va da 0 a 15. Se ci sono ingressi a più bit e questi devono
+essere impostati insieme ad un valore binario, si può usare la dichiarazione "bits([bits], [value])". Questo crea [bits] bit
+con il valore [value].&lt;/p&gt;
 
-        &lt;p&gt;Il seguente è un esempio con un sommatore a 4 bit:&lt;/p&gt;
+&lt;p&gt;Il seguente è un esempio con un sommatore a 4 bit:&lt;/p&gt;
 
-        &lt;pre&gt;
-        C_i-1  A_3 A_2 A_1 A_0  B_3 B_2 B_1 B_0  C_i S_3 S_2 S_1 S_0
-        repeat(256)  0    bits(4,n&gt;&gt;4)     bits(4,n)        bits(5,(n&gt;&gt;4)+(n&amp;15))
-        repeat(256)  1    bits(4,n&gt;&gt;4)     bits(4,n)        bits(5,(n&gt;&gt;4)+(n&amp;15)+1)
-        &lt;/pre&gt;
+&lt;pre&gt;
+           C_i-1  A_3 A_2 A_1 A_0  B_3 B_2 B_1 B_0  C_i S_3 S_2 S_1 S_0
+repeat(256)  0    bits(4,n&gt;&gt;4)     bits(4,n)        bits(5,(n&gt;&gt;4)+(n&amp;15))
+repeat(256)  1    bits(4,n&gt;&gt;4)     bits(4,n)        bits(5,(n&gt;&gt;4)+(n&amp;15)+1)
+&lt;/pre&gt;
 
-        &lt;p&gt;
-        I segnali di ingresso sono il carry (C_i-1) e gli otto bit A_3-A_0 e B_3-B_0.
-        I quattro bit di ingresso sono generati con l'istruzione "bits". Il risutato (C_i, S_3-S_0) è anch'esso
-        generato dall'istruzione "bits".
-        Questo si verifica una volta quando C_i-1=0 e nella linea successiva con C_i-1=1.
-        In questo modo, 512 linee di test vengono generate che coprono tutte le possibili configurazioni di ingresso.&lt;/p&gt;
-        &lt;p&gt;
-        Se più linee devono venir ripetute, o se cicli annidati sono richiesti, la dichiarazione "loop" può essere utilizzata.
-        L'esempio soprastante può infatti essere realizzato come segue:&lt;/p&gt;
+&lt;p&gt;
+I segnali di ingresso sono il carry (C_i-1) e gli otto bit A_3-A_0 e B_3-B_0.
+I quattro bit di ingresso sono generati con l'istruzione "bits". Il risutato (C_i, S_3-S_0) è anch'esso
+generato dall'istruzione "bits".
+Questo si verifica una volta quando C_i-1=0 e nella linea successiva con C_i-1=1.
+In questo modo, 512 linee di test vengono generate che coprono tutte le possibili configurazioni di ingresso.&lt;/p&gt;
+&lt;p&gt;
+Se più linee devono venir ripetute, o se cicli annidati sono richiesti, la dichiarazione "loop" può essere utilizzata.
+L'esempio soprastante può infatti essere realizzato come segue:&lt;/p&gt;
 
-        &lt;pre&gt;
-        C_i-1  A_3 A_2 A_1 A_0  B_3 B_2 B_1 B_0  C_i S_3 S_2 S_1 S_0
-        loop(a,16)
-        loop(b,16)
-        0    bits(4,a)        bits(4,b)        bits(5,a+b)
-        1    bits(4,a)        bits(4,b)        bits(5,a+b+1)
-        end loop
-        end loop
-        &lt;/pre&gt;
+&lt;pre&gt;
+           C_i-1  A_3 A_2 A_1 A_0  B_3 B_2 B_1 B_0  C_i S_3 S_2 S_1 S_0
+loop(a,16)
+  loop(b,16)
+             0    bits(4,a)        bits(4,b)        bits(5,a+b)
+             1    bits(4,a)        bits(4,b)        bits(5,a+b+1)
+  end loop
+end loop
+&lt;/pre&gt;
 
-        &lt;p&gt;
-        In alcune circostanze potrebbe essere necessario reagire allo stato iniziale del
-        circuito. Quindi i segnali forniti nel circuito possono essere utilizzati all'interno
-        del test case. Per esempio, se un contatore che parte in uno stato indefinito deve
-        essere testato, può essere impostato ad un valore definito dopo il clock:&lt;/p&gt;
+&lt;p&gt;
+In alcune circostanze potrebbe essere necessario reagire allo stato iniziale del
+circuito. Quindi i segnali forniti nel circuito possono essere utilizzati all'interno
+del test case. Per esempio, se un contatore che parte in uno stato indefinito deve
+essere testato, può essere impostato ad un valore definito dopo il clock:&lt;/p&gt;
 
-        &lt;pre&gt;C Q_3 Q_2 Q_1 Q_0
+&lt;pre&gt;C Q_3 Q_2 Q_1 Q_0
 
-        # contatore clock a 1111
-        while(!(Q_3 &amp; Q_2 &amp; Q_1 &amp; Q_0))
-        C x x x x
-        end while
+# contatore clock a 1111
+while(!(Q_3 &amp; Q_2 &amp; Q_1 &amp; Q_0))
+C x x x x
+end while
 
-        # inizio dell'esecuzione del test
-        repeat(16) C bits(4,n)
-        &lt;/pre&gt;
+# inizio dell'esecuzione del test
+repeat(16) C bits(4,n)
+&lt;/pre&gt;
 
-        &lt;p&gt;
-        Può essere utile generare numeri casuali nei test case.
-        Questi possono essere creati con la funzione "random([n])". Il numero generato è
-        compreso tra zero e [n]-1. Considerando un moltiplicatore a 16 bit come esempio,
-        un test completo non può essere generato visto che ci sono 2^32 combinazioni di
-        ingressi. IN questo caso un test di regressione può moltiplicare 10000 numeri casuali:&lt;/p&gt;
+&lt;p&gt;
+Può essere utile generare numeri casuali nei test case.
+Questi possono essere creati con la funzione "random([n])". Il numero generato è
+compreso tra zero e [n]-1. Considerando un moltiplicatore a 16 bit come esempio,
+un test completo non può essere generato visto che ci sono 2^32 combinazioni di
+ingressi. IN questo caso un test di regressione può moltiplicare 10000 numeri casuali:&lt;/p&gt;
 
-        &lt;pre&gt;
-        A    B      Y
-        loop(i,100000)
-        let a = random(1&amp;lt;&amp;lt;16);
-        let b = random(1&amp;lt;&amp;lt;16);
-        (a)  (b)   (a*b)
-        end loop
-        &lt;/pre&gt;
+&lt;pre&gt;
+   A    B      Y
+loop(i,100000)
+  let a = random(1&amp;lt;&amp;lt;16);
+  let b = random(1&amp;lt;&amp;lt;16);
+  (a)  (b)   (a*b)
+end loop
+&lt;/pre&gt;
 
-        &lt;p&gt;
-        Un ingresso che consente valori ad alta impedenza può anche essere usato come risultato del test.
-        In questo caso, il nome del segnale deve essere scritto con "_out" alla fine per la lettura e verifica del valore attuale.
-        Per questa cosa, l'ingresso corrispondente deve essere impostato al valore di alta impedenza ("Z").&lt;/p&gt;
+&lt;p&gt;
+Un ingresso che consente valori ad alta impedenza può anche essere usato come risultato del test.
+In questo caso, il nome del segnale deve essere scritto con "_out" alla fine per la lettura e verifica del valore attuale.
+Per questa cosa, l'ingresso corrispondente deve essere impostato al valore di alta impedenza ("Z").&lt;/p&gt;
 
-        &lt;pre&gt;OE CLK D D_out
-        0   0  0 0
-        0   C  1 1
-        1   0  z 1
-        0   C  0 0
-        1   0  z 0
-        &lt;/pre&gt;
+&lt;pre&gt;OE CLK D D_out
+0   0  0 0
+0   C  1 1
+1   0  z 1
+0   C  0 0
+1   0  z 0
+&lt;/pre&gt;
 
-        &lt;p&gt;
-        Il circuito per questo test ha soltanto un ingresso "D", ma esso può essere impostato in alta impedenza.
-        Quindi, il segnale "D_out" è anche disponibile per controllare il valore in questo caso.&lt;/p&gt;
+&lt;p&gt;
+Il circuito per questo test ha soltanto un ingresso "D", ma esso può essere impostato in alta impedenza.
+Quindi, il segnale "D_out" è anche disponibile per controllare il valore in questo caso.&lt;/p&gt;
 
-        &lt;p&gt;
-        In situazioni particolare, potrebbe essere desiderabile utilizzare dei segnali che sono forniti dal circuito
-        per derivare un nuovo segnale, che è poi testato. Un esempio potrebbe essere un segnale del bus con più bit, dove
-        solo un singolo bit deve essere testato e non tutti quanti. In questo caso, un nuovo segnale può essere generato nel test
-        stesso, che contiene questo singolo bit.&lt;/p&gt;
-        &lt;p&gt;Questo è fatto con la dichiarazione "declare":&lt;/p&gt;
-        &lt;pre&gt;A B Bit
+&lt;p&gt;
+In situazioni particolare, potrebbe essere desiderabile utilizzare dei segnali che sono forniti dal circuito
+per derivare un nuovo segnale, che è poi testato. Un esempio potrebbe essere un segnale del bus con più bit, dove
+solo un singolo bit deve essere testato e non tutti quanti. In questo caso, un nuovo segnale può essere generato nel test
+stesso, che contiene questo singolo bit.&lt;/p&gt;
+&lt;p&gt;Questo è fatto con la dichiarazione "declare":&lt;/p&gt;
+&lt;pre&gt;A B Bit
 
-        declare Bit = (Bus&gt;&gt;3)&amp;1;
+declare Bit = (Bus&gt;&gt;3)&amp;1;
 
-        0 0  0
-        0 1  0
-        1 0  1
-        1 1  0
-        &lt;/pre&gt;
-        &lt;p&gt;In questo esempio, il terzo bit è isolato dal segnale "Bus" e reso disponibile come segnale "Bit" per il test. Il
-        circuito stesso non contiene un'uscita "Bit".&lt;/p&gt;
-        &lt;h3&gt;Funzioni&lt;/h3&gt;
-        &lt;p&gt;Le funzioni disponibili sono:
-        &lt;dl&gt;
-        &lt;dt&gt;signExt([bits],[value])&lt;/dt&gt;
-        &lt;dd&gt;Estende il valore [value] preservando il segno a [bits] bit.&lt;/dd&gt;
-        &lt;dt&gt;random([max])&lt;/dt&gt;
-        &lt;dd&gt;Restituisce un numero intero casuale. Il valore massimo è specificato con [max].&lt;/dd&gt;
-        &lt;dt&gt;ite([cond],[then],[else])&lt;/dt&gt;
-        &lt;dd&gt;Se la condizione [cond] è vera, il valore [then] è restituito, altrimenti [else].&lt;/dd&gt;
-        &lt;/dl&gt;
-        &lt;/p&gt;
+0 0  0
+0 1  0
+1 0  1
+1 1  0
+&lt;/pre&gt;
+&lt;p&gt;In questo esempio, il terzo bit è isolato dal segnale "Bus" e reso disponibile come segnale "Bit" per il test. Il
+circuito stesso non contiene un'uscita "Bit".&lt;/p&gt;
+&lt;h3&gt;Funzioni&lt;/h3&gt;
+&lt;p&gt;Le funzioni disponibili sono:
+&lt;dl&gt;
+&lt;dt&gt;signExt([bits],[value])&lt;/dt&gt;
+&lt;dd&gt;Estende il valore [value] preservando il segno a [bits] bit.&lt;/dd&gt;
+&lt;dt&gt;random([max])&lt;/dt&gt;
+&lt;dd&gt;Restituisce un numero intero casuale. Il valore massimo è specificato con [max].&lt;/dd&gt;
+&lt;dt&gt;ite([cond],[then],[else])&lt;/dt&gt;
+&lt;dd&gt;Se la condizione [cond] è vera, il valore [then] è restituito, altrimenti [else].&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;/p&gt;
 
-        &lt;h3&gt;Processori&lt;/h3&gt;
-        &lt;p&gt;
-        Se i processori devono essere testati, una inizializzazione del processore è di solito richiesta.
-        Si può effettuare questa inizializzazione all'interno del test case.
-        In questo modo, più test possono trovarsi in un circuito ed ogni test utilizza la sua inizializzazione.
-        Ci sono tre istruzioni per effettuare questa inizializzazione:&lt;/p&gt;
-        &lt;ul&gt;
-        &lt;li&gt;
-        La dichiarazione "program" può essere usata per sovrascrivere la memoria del programma del processore.
-        L'istruzione &lt;pre&gt;program(0x8000,0x2d11,0x8000,0x2f21)&lt;/pre&gt; scrive quattro parole di bit all'inizio della memoria
-        del programma. Tutte le altre sono impostate a zero.&lt;/li&gt;.
-        &lt;li&gt;
-        L'istruzione "memory" può essere utilizzata per scrivere in un componente RAM:
-        &lt;pre&gt;memory mem(3)=7;&lt;/pre&gt;
-        Questo esempio scrive 7 bit nella memoria con etichetta "mem" all'indirizzo 3.&lt;/li&gt;
-        &lt;li&gt;
-        Un registro con nome può essere sovrascritto con l'istruzione "init".
-        &lt;pre&gt;init R0=22;&lt;/pre&gt;
-        Questa istruzione sovrascrive iil valore del registro con etichetta "R0" col valore 22.&lt;/li&gt;
-        &lt;/ul&gt;
-        &lt;p&gt;
-        Si noti che tutte le inizializzazioni sono applicate una volta prima dell'esecuzione del test. Non importa in che riga
-        del test case queste dichiarazioni si trovano.
-        Comunque, non devono trovarsi sopra la riga di intestazione che elenca i nomi dei segnali.&lt;/p&gt;.
-        &lt;/body&gt;&lt;/html&gt;</string>
+&lt;h3&gt;Processori&lt;/h3&gt;
+&lt;p&gt;
+Se i processori devono essere testati, una inizializzazione del processore è di solito richiesta.
+Si può effettuare questa inizializzazione all'interno del test case.
+In questo modo, più test possono trovarsi in un circuito ed ogni test utilizza la sua inizializzazione.
+Ci sono tre istruzioni per effettuare questa inizializzazione:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+La dichiarazione "program" può essere usata per sovrascrivere la memoria del programma del processore.
+L'istruzione &lt;pre&gt;program(0x8000,0x2d11,0x8000,0x2f21)&lt;/pre&gt; scrive quattro parole di bit all'inizio della memoria
+del programma. Tutte le altre sono impostate a zero.&lt;/li&gt;.
+&lt;li&gt;
+L'istruzione "memory" può essere utilizzata per scrivere in un componente RAM:
+&lt;pre&gt;memory mem(3)=7;&lt;/pre&gt;
+Questo esempio scrive 7 bit nella memoria con etichetta "mem" all'indirizzo 3.&lt;/li&gt;
+&lt;li&gt;
+Un registro con nome può essere sovrascritto con l'istruzione "init".
+&lt;pre&gt;init R0=22;&lt;/pre&gt;
+Questa istruzione sovrascrive iil valore del registro con etichetta "R0" col valore 22.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;
+Si noti che tutte le inizializzazioni sono applicate una volta prima dell'esecuzione del test. Non importa in che riga
+del test case queste dichiarazioni si trovano.
+Comunque, non devono trovarsi sopra la riga di intestazione che elenca i nomi dei segnali.&lt;/p&gt;.
+&lt;/body&gt;&lt;/html&gt;</string>
     <string name="fsm_title">Macchina a Stati Finiti</string>
     <string name="fsm_noMove">Nessun movimento</string>
     <string name="fsm_moveTrans">Transizioni</string>
@@ -1988,39 +1985,39 @@ In the file howTo.md you can find more details about translations.
     <string name="msg_fsm_optimizer_initial">Complessità iniziale:</string>
     <string name="msg_fsm_optimizer_best">Miglior risultato fino ad ora:</string>
     <string name="msg_fsmHelp">&lt;html&gt;&lt;head&gt;&lt;/head&gt;
-        &lt;body&gt;
-        &lt;h3&gt;Operazioni col Mouse:&lt;/h3&gt;
-        &lt;dl&gt;
-        &lt;dt&gt;Crea uno stato:&lt;/dt&gt;
-        &lt;dd&gt;Clicca con il tasto destro su un'area libera.&lt;/dd&gt;
-        &lt;dt&gt;Creazione di una transizione:&lt;/dt&gt;
-        &lt;dd&gt;Premi il tasto destro sull'inizio dello stato e trascinamento verso lo stato di destinazione.&lt;/dd&gt;
-        &lt;dt&gt;Eliminazione di uno stato o transizione:&lt;/dt&gt;
-        &lt;dd&gt;Sposta il mouse sull'oggetto e premi il tasto [Del].&lt;/dd&gt;
-        &lt;dt&gt;Spostare una transizione o stato:&lt;/dt&gt;
-        &lt;dd&gt;Premi il tasto sinistro sull'oggetto e trascina.&lt;/dd&gt;
-        &lt;dt&gt;Editing a state or a transition:&lt;/dt&gt;
-        &lt;dd&gt;Clicca con il tasto destro su una transizione o stato.&lt;/dd&gt;
-        &lt;/dl&gt;
-        &lt;h3&gt;Funzione di Posizionamento Assistito&lt;/h3&gt;
-        &lt;dl&gt;
-        &lt;dt&gt;Nessun movimento:&lt;/dt&gt;
-        &lt;dd&gt;La funzione di posizionamento assistito è disabilitata.&lt;/dd&gt;
-        &lt;dt&gt;Transizioni:&lt;/dt&gt;
-        &lt;dd&gt;La funzione sposta le frecce di transizione per evitare sovrapposizioni.&lt;/dd&gt;
-        &lt;dt&gt;Transizioni e Stati:&lt;/dt&gt;
-        &lt;dd&gt;La funzione sposta le frecce di transizione per evitare sovrapposizioni ed anche gli stati per creare un grafo
-        bilanciato.&lt;/dl&gt;
-        &lt;h3&gt;Interpretazione delle Transizioni:&lt;/h3&gt;
-        Per semplificare la generazione di un automa deterministico, transizioni senza condizioni sono trattate in un modo
-        speciale: una transizione senza condizione è eseguita soltanto se nessun'altra transizione soddisfa la condizione
-        della transizione.
-        Quindi ci può essere sia una transizione con che senza condizione che partono dallo stesso stato.
-        Una transizione senza condizione determina quindi in che stato la macchina a stati verrà messa se nessun'altra
-        condizione di transizione viene raggiunta.
-        Se non ci sono transizioni senza condizione da uno stato, la macchina a stati starà in quello stato fino a quando
-        una condizione viene verificata.
-        &lt;/body&gt;&lt;/html&gt;</string>
+&lt;body&gt;
+  &lt;h3&gt;Operazioni col Mouse:&lt;/h3&gt;
+  &lt;dl&gt;
+    &lt;dt&gt;Crea uno stato:&lt;/dt&gt;
+    &lt;dd&gt;Clicca con il tasto destro su un'area libera.&lt;/dd&gt;
+    &lt;dt&gt;Creazione di una transizione:&lt;/dt&gt;
+    &lt;dd&gt;Premi il tasto destro sull'inizio dello stato e trascinamento verso lo stato di destinazione.&lt;/dd&gt;
+    &lt;dt&gt;Eliminazione di uno stato o transizione:&lt;/dt&gt;
+    &lt;dd&gt;Sposta il mouse sull'oggetto e premi il tasto [Del].&lt;/dd&gt;
+    &lt;dt&gt;Spostare una transizione o stato:&lt;/dt&gt;
+    &lt;dd&gt;Premi il tasto sinistro sull'oggetto e trascina.&lt;/dd&gt;
+    &lt;dt&gt;Editing a state or a transition:&lt;/dt&gt;
+    &lt;dd&gt;Clicca con il tasto destro su una transizione o stato.&lt;/dd&gt;
+  &lt;/dl&gt;
+  &lt;h3&gt;Funzione di Posizionamento Assistito&lt;/h3&gt;
+  &lt;dl&gt;
+    &lt;dt&gt;Nessun movimento:&lt;/dt&gt;
+    &lt;dd&gt;La funzione di posizionamento assistito è disabilitata.&lt;/dd&gt;
+    &lt;dt&gt;Transizioni:&lt;/dt&gt;
+    &lt;dd&gt;La funzione sposta le frecce di transizione per evitare sovrapposizioni.&lt;/dd&gt;
+    &lt;dt&gt;Transizioni e Stati:&lt;/dt&gt;
+    &lt;dd&gt;La funzione sposta le frecce di transizione per evitare sovrapposizioni ed anche gli stati per creare un grafo
+      bilanciato.&lt;/dl&gt;
+  &lt;h3&gt;Interpretazione delle Transizioni:&lt;/h3&gt;
+  Per semplificare la generazione di un automa deterministico, transizioni senza condizioni sono trattate in un modo
+  speciale: una transizione senza condizione è eseguita soltanto se nessun'altra transizione soddisfa la condizione
+  della transizione.
+  Quindi ci può essere sia una transizione con che senza condizione che partono dallo stesso stato.
+  Una transizione senza condizione determina quindi in che stato la macchina a stati verrà messa se nessun'altra
+  condizione di transizione viene raggiunta.
+  Se non ci sono transizioni senza condizione da uno stato, la macchina a stati starà in quello stato fino a quando
+  una condizione viene verificata.
+&lt;/body&gt;&lt;/html&gt;</string>
     <string name="msg_graphHelpTitle">Il grafico delle misurazioni</string>
     <string name="msg_graphHelp">&lt;html&gt;&lt;body&gt;
         &lt;h3&gt;Cosa può essere mostrato nel grafico?&lt;/h3&gt;
@@ -2084,7 +2081,7 @@ In the file howTo.md you can find more details about translations.
     <string name="key_splitterSpreading">Spargimento</string>
     <string name="key_skipHDL">Salta l'esportazione Verilog/VHDL</string>
     <string name="key_skipHDL_tt">Salta l'esportazione della generazione dei componenti interni al circuito in Verilog/VHDL.
-        I riferimenti ai circuiti sono mantenuti, rendendo possibile la sovrascrittura della loro implementazione.</string>
+    	I riferimenti ai circuiti sono mantenuti, rendendo possibile la sovrascrittura della loro implementazione.</string>
     <string name="menu_colorSchemePreset">Configurazione preimpostata</string>
     <string name="colorName_TESTCASE">Caso di prova</string>
     <string name="menu_karnaughMap">Mappa di Karnaugh</string>
