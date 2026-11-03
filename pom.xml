@@ -132,6 +132,48 @@
                 </plugins>
             </build>
         </profile>
+        <profile>
+            <id>bundle-mac-dmg</id>
+            <activation>
+                <property>
+                    <name>dmg</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>3.1.0</version>
+                        <executions>
+                            <execution>
+                                <id>create-mac-dmg</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <executable>/bin/zsh</executable>
+                                    <arguments>
+                                        <argument>-c</argument>
+                                        <argument>
+                                            <![CDATA[
+                                            rm -rf target/dmg-staging target/dist/*.dmg
+                                            mkdir -p target/dmg-staging
+                                            cp -R target/dist/Digital.app target/dmg-staging/
+                                            ln -s /Applications target/dmg-staging/Applications
+                                            hdiutil create -volname "Digital" -srcfolder target/dmg-staging -ov -format UDZO target/dist/Digital-macOS.dmg
+                                            rm -rf target/dmg-staging
+                                        ]]>
+                                        </argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
     </profiles>
     <reporting>
         <plugins>
