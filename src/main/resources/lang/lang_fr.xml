@@ -5,7 +5,9 @@ This makes it very difficult for me to continue to maintain the translation.
 The only exception are simple typos.
 Pull requests in which this file is modified beyond simple typos cannot be accepted.
 In the file howTo.md you can find more details about translations.
---><resources>
+-->
+<resources>
+    <string name="fileType_digitalCircuit">Circuit Digital</string>
     <string name="addr">Adresse</string>
     <string name="tableOfContent">Table des matières</string>
     <string name="general">Général</string>
@@ -312,10 +314,6 @@ In the file howTo.md you can find more details about translations.
     <string name="elem_StepperMotorUnipolar_pin_S1">Interrupteur de position limite 1, devient 1 lorsque l'angle du
         moteur est de 180°.
     </string>
-    
-    
-    
-    
     <string name="elem_StepperMotorUnipolar_pin_com">Connexion de bobine centrale commune</string>
     <string name="elem_StepperMotorBipolar">Moteur pas-à-pas, bipolaire</string>
     <string name="elem_StepperMotorBipolar_tt">Moteur pas-à-pas bipolaire avec deux interrupteurs de position limite.
@@ -1867,7 +1865,6 @@ In the file howTo.md you can find more details about translations.
     <string name="menu_synthesise">Synthèse</string>
     <string name="menu_synthesise_tt">Génère les expressions booléennes minimales décrites par une table de vérité.
     </string>
-    
     <string name="menu_table_create">Créer</string>
     <string name="menu_table_createCUPL_tt">Crée un nouveau fichier source CUPL contenant le circuit défini.</string>
     <string name="menu_table_createTT2_tt">Crée un fichier contenant un circuit similaire au format Berkeley Logic
@@ -2017,14 +2014,10 @@ In the file howTo.md you can find more details about translations.
     <string name="stat_bits">Bits</string>
     <string name="stat_addrBits">Bits d'addr.</string>
     <string name="msg_errorOpeningDocumentation">Erreur lors de l'ouverture du fichier PDF!</string>
-    <string name="message"><![CDATA[<h1>Digital</h1>
-        <p>Un simulateur simple pour les circuits numériques.</p>
-        <p>Écrit par H. Neemann de 2016-2023.</p>
-        <p>Les icônes ont été prises du <a href="http://tango.freedesktop.org">projet Tango Desktop</a>.</p>
-        <p>Visiter le projet sur <a href="https://github.com/hneemann/[[name]]">GitHub</a>.
+    <string name="message">
+        <![CDATA[<h1>Digital</h1><p>Un simulateur simple pour les circuits numériques.</p><p>Écrit par H. Neemann de 2016-2023.</p><p>Les icônes ont été prises du <a href="http://tango.freedesktop.org">projet Tango Desktop</a>.</p><p>Visiter le projet sur <a href="https://github.com/hneemann/[[name]]">GitHub</a>.
         Sur GitHub vous pouvez aussi <a href="https://github.com/hneemann/[[name]]/releases/latest">télécharger</a>
-        la dernière version.</p>
-        <p>Vous pouvez aussi y poser <a
+        la dernière version.</p><p>Vous pouvez aussi y poser <a
         href="https://github.com/hneemann/[[name]]/issues/new?body=version:%20[[version]]&labels=bug">une
         question au sujet d'un problème</a>
         ou suggérer une <a href="https://github.com/hneemann/[[name]]/issues/new?labels=enhancement">amélioration</a>.</p>]]>
@@ -2098,7 +2091,6 @@ In the file howTo.md you can find more details about translations.
     <string name="msg_errGettingPinNames">Impossible de déterminer le nom des broches.</string>
     <string name="msg_errInFile_N">A eu lieu dans le fichier {0}.</string>
     <string name="msg_affectedComponentsAre_N">Les composants affectés sont: {0}.</string>
-    
     <string name="msg_thereAreMissingPinNumbers">Aucun numéro de broche assigné aux broches {0}!
         Les broches libres sont automatiquement assignées. Ainsi, dans la plupart des cas, le circuit ne peut
         pas être utilisé sur du vrai matériel!
@@ -2220,17 +2212,15 @@ In the file howTo.md you can find more details about translations.
         &lt;/html&gt;
     </string>
     <string name="msg_expressionHelpTitle">Expressions</string>
-    <string name="msg_expressionHelp"><![CDATA[
+    <string name="msg_expressionHelp">
+        <![CDATA[
         <p>Pour définir une expression, vous pouvez utiliser la plupart des notations
-        courantes:</p>
-        <p>
+        courantes:</p><p>
         ET: "&", "&&", "*", "∧"<br/>
         OU: "|", "||", "+", "∨", "#"<br/>
         XOR: "^", "⊻"<br/>
         NON: "!", "~", "¬"
-        </p>
-        <p>Comme d'habitude, le ET à la priorité sur le OU et le XOR.</p>
-        <p>Plusieurs expressions peuvent être séparées par "," ou ";".
+        </p><p>Comme d'habitude, le ET à la priorité sur le OU et le XOR.</p><p>Plusieurs expressions peuvent être séparées par "," ou ";".
         Si vous voulez nommer les expressions, vous pouvez utiliser la
         commande let: "let U=A+B, let V=A*B".</p>]]>
     </string>
@@ -2339,53 +2329,53 @@ In the file howTo.md you can find more details about translations.
         &lt;p&gt;Le circuit pour ce test n'a qu'une seule entrée 'D', qui peut prendre un état de haute impédance.
         Alors, le signal 'D_out' est aussi disponible pour vérifier la valeur dans ce cas.&lt;/p&gt;
 
-&lt;p&gt;Dans des cas particuliers, il peut être utile d'utiliser des signaux du circuit pour
-dériver un nouveau signal qui devra être testé. Par exemple, un bus contenant plusieurs bits
-pourrait contenir un seul bit qui doit être testé, alors que les autres bits n'importe pas.
-Dans ce cas, un nouveau signal correspondant à ce bit peut être créé dans le test lui-même&lt;/p&gt;
-&lt;p&gt;Cela peut se faire avec l'énoncé 'declare':&lt;/p&gt;
-&lt;pre&gt;A B Bit
+        &lt;p&gt;Dans des cas particuliers, il peut être utile d'utiliser des signaux du circuit pour
+        dériver un nouveau signal qui devra être testé. Par exemple, un bus contenant plusieurs bits
+        pourrait contenir un seul bit qui doit être testé, alors que les autres bits n'importe pas.
+        Dans ce cas, un nouveau signal correspondant à ce bit peut être créé dans le test lui-même&lt;/p&gt;
+        &lt;p&gt;Cela peut se faire avec l'énoncé 'declare':&lt;/p&gt;
+        &lt;pre&gt;A B Bit
 
-declare Bit = (Bus&gt;&gt;3)&amp;1;
+        declare Bit = (Bus&gt;&gt;3)&amp;1;
 
-0 0  0
-0 1  0
-1 0  1
-1 1  0
-&lt;/pre&gt;
-&lt;p&gt;Dans cet exemple, le troisième bit du signal 'Bus' est isolé et rendu disponible sous
-le nom de 'Bit' pour le test. Le circuit en tant que tel ne contient pas de sortie 'Bit'.&lt;/p&gt;
-&lt;h3&gt;Fonctions&lt;/h3&gt;
-&lt;p&gt;Les fonctions disponibles sont:
-&lt;dl&gt;
-&lt;dt&gt;signExt([bits],[valeur])&lt;/dt&gt;
-&lt;dd&gt;Étend la valeur [valeur] en préservant le bit de signe pour les nouveaux bits.&lt;/dd&gt;
-&lt;dt&gt;random([max])&lt;/dt&gt;
-&lt;dd&gt;Retourne un nombre entier aléatoire. La valeur maximale est spécifiée avec [max].&lt;/dd&gt;
-&lt;dt&gt;ite([cond],[then],[else])&lt;/dt&gt;
-&lt;dd&gt;Si la condition [cond] est vraie, alors la valeur [then] est retournée, sinon la valeur [else] est retournée.&lt;/dd&gt;
-&lt;/dl&gt;
-&lt;/p&gt;
+        0 0  0
+        0 1  0
+        1 0  1
+        1 1  0
+        &lt;/pre&gt;
+        &lt;p&gt;Dans cet exemple, le troisième bit du signal 'Bus' est isolé et rendu disponible sous
+        le nom de 'Bit' pour le test. Le circuit en tant que tel ne contient pas de sortie 'Bit'.&lt;/p&gt;
+        &lt;h3&gt;Fonctions&lt;/h3&gt;
+        &lt;p&gt;Les fonctions disponibles sont:
+        &lt;dl&gt;
+        &lt;dt&gt;signExt([bits],[valeur])&lt;/dt&gt;
+        &lt;dd&gt;Étend la valeur [valeur] en préservant le bit de signe pour les nouveaux bits.&lt;/dd&gt;
+        &lt;dt&gt;random([max])&lt;/dt&gt;
+        &lt;dd&gt;Retourne un nombre entier aléatoire. La valeur maximale est spécifiée avec [max].&lt;/dd&gt;
+        &lt;dt&gt;ite([cond],[then],[else])&lt;/dt&gt;
+        &lt;dd&gt;Si la condition [cond] est vraie, alors la valeur [then] est retournée, sinon la valeur [else] est retournée.&lt;/dd&gt;
+        &lt;/dl&gt;
+        &lt;/p&gt;
 
-&lt;h3&gt;Processeurs&lt;/h3&gt;
-&lt;p&gt;Si des processeurs doivent être testés, ceux-ci doivent généralement être initialisés.
-Il est possible de le faire dans l'énoncé du test.
-De cette façon, plusieurs tests peuvent se trouver dans un même circuit en ayant chacun leur propre initialisation.
-Il existe trois instructions permettant d'initialiser le processeur:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;L'énoncé 'program' permet de remplacer la mémoire de programme du processeur.
-Par exemple, l'instruction &lt;pre&gt;program(0x8000,0x2d11,0x8000,0x2f21)&lt;/pre&gt; écrit quatre mots au début de la mémoire
-de programme. Tous les autres mots sont mis à zéro.&lt;/li&gt;
-&lt;li&gt;L'énoncé 'memory' permet d'écrire dans un composant RAM:
-&lt;pre&gt;memory mem(3)=7;&lt;/pre&gt;
-Cette exemple écrit 7 à l'adresse 3 de la mémoire avec l'étiquette 'mem'.&lt;/li&gt;
-&lt;li&gt;La valeur d'un registre avec une étiquette peut être changé avec l'énoncé 'init'.
-&lt;pre&gt;init R0=22;&lt;/pre&gt;
-Cette instruction change la valeur du registre avec l'étiquette 'R0' pour 22.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;À noter que ces instructions d'initialisation ne sont appliqués qu'une seule fois au début du test.
-La ligne qui contient l'énoncé n'a pas d'importance. Toutefois, ils ne doivent pas se situer avant la
-ligne d'en-tête utilisée pour spécifier les signaux testés.&lt;/p&gt;
+        &lt;h3&gt;Processeurs&lt;/h3&gt;
+        &lt;p&gt;Si des processeurs doivent être testés, ceux-ci doivent généralement être initialisés.
+        Il est possible de le faire dans l'énoncé du test.
+        De cette façon, plusieurs tests peuvent se trouver dans un même circuit en ayant chacun leur propre initialisation.
+        Il existe trois instructions permettant d'initialiser le processeur:&lt;/p&gt;
+        &lt;ul&gt;
+        &lt;li&gt;L'énoncé 'program' permet de remplacer la mémoire de programme du processeur.
+        Par exemple, l'instruction &lt;pre&gt;program(0x8000,0x2d11,0x8000,0x2f21)&lt;/pre&gt; écrit quatre mots au début de la mémoire
+        de programme. Tous les autres mots sont mis à zéro.&lt;/li&gt;
+        &lt;li&gt;L'énoncé 'memory' permet d'écrire dans un composant RAM:
+        &lt;pre&gt;memory mem(3)=7;&lt;/pre&gt;
+        Cette exemple écrit 7 à l'adresse 3 de la mémoire avec l'étiquette 'mem'.&lt;/li&gt;
+        &lt;li&gt;La valeur d'un registre avec une étiquette peut être changé avec l'énoncé 'init'.
+        &lt;pre&gt;init R0=22;&lt;/pre&gt;
+        Cette instruction change la valeur du registre avec l'étiquette 'R0' pour 22.&lt;/li&gt;
+        &lt;/ul&gt;
+        &lt;p&gt;À noter que ces instructions d'initialisation ne sont appliqués qu'une seule fois au début du test.
+        La ligne qui contient l'énoncé n'a pas d'importance. Toutefois, ils ne doivent pas se situer avant la
+        ligne d'en-tête utilisée pour spécifier les signaux testés.&lt;/p&gt;
         &lt;/body&gt;&lt;/html&gt;</string>
     <string name="fsm_title">Automate fini</string>
     <string name="fsm_noMove">Aucun mouvement</string>
@@ -2573,7 +2563,7 @@ ligne d'en-tête utilisée pour spécifier les signaux testés.&lt;/p&gt;
     <string name="err_notConnectedNotAllowed">Le symbole "Pas connecté" n'est pas permis ici!</string>
     <string name="elem_ROMDualPort">ROM, ports séparés</string>
     <string name="elem_ROMDualPort_tt">Un composant de mémoire non volatile.
-      Les données stockées peuvent être éditées dans le dialog d'attributs.</string>
+        Les données stockées peuvent être éditées dans le dialog d'attributs.</string>
     <string name="elem_ROMDualPort_pin_A1">Cette entrée définie l'adresse du mot qui sera émis sur D1.</string>
     <string name="elem_ROMDualPort_pin_D1">Le mot sélectionné si l'entrée s1 est haute.</string>
     <string name="elem_ROMDualPort_pin_s1">Si cette entrée est haute, la sortie D1 est activée. Si elle est basse, la sortie est dans un état de haute impédance.</string>
@@ -2705,7 +2695,7 @@ ligne d'en-tête utilisée pour spécifier les signaux testés.&lt;/p&gt;
     <string name="key_persistTime_tt">Spécifie la durée de la lumière rémanente. Plus la valeur est élevée, plus la rémanence est longue.</string>
     <string name="key_oscillationDetectionCounter">Détection d'oscillation</string>
     <string name="key_oscillationDetectionCounter_tt">Nombre de délais équivalents au temps de propagation d'une porte logique à partir
-      duquel une oscillation est détectée si le circuit n'est pas encore stable.</string>
+        duquel une oscillation est détectée si le circuit n'est pas encore stable.</string>
     <string name="key_openRemotePort">Permettre la connexion à distance</string>
     <string name="key_openRemotePort_tt">Si coché, un port TCP/IP est ouvert, à travers lequel le contrôle du simulateur est possible.</string>
     <string name="key_remotePort">Numéro de port</string>
