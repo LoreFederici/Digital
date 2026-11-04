@@ -2118,5 +2118,4 @@ Comunque, non devono trovarsi sopra la riga di intestazione che elenca i nomi de
     <string name="key_source_noData">non caricare nessun dato</string>
     <string name="key_source_dataField">dati salvati</string>
     <string name="err_could_not_load_rom">Impossibile caricare i dati della ROM!</string>
-    <string name="fileType_digitalCircuit">Circuito Digital</string>
 </resources>

@@ -2404,5 +2404,4 @@ In the file howTo.md you can find more details about translations.
     <string name="key_source_file">arquivo</string>
     <string name="key_source_dataField">dados armazenados</string>
     <string name="err_could_not_load_rom">Impossível carregar dados da ROM!</string>
-    <string name="fileType_digitalCircuit">Circuito do Digital</string>
 </resources>
