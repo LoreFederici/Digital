@@ -43,6 +43,17 @@ if [ -z "${JAVA_HOME:-}" ] || [ ! -x "${JAVA_HOME}/bin/jpackage" ]; then
             JAVA_HOME="$DETECTED_JAVA"
         fi
     fi
+    if [ -z "${JAVA_HOME:-}" ] || [ ! -x "${JAVA_HOME}/bin/jpackage" ]; then
+        for candidate in \
+            /Library/Java/JavaVirtualMachines/temurin-21.jdk/Contents/Home \
+            /Library/Java/JavaVirtualMachines/temurin-17.jdk/Contents/Home \
+            /opt/homebrew/opt/openjdk/libexec/openjdk.jdk/Contents/Home; do
+            if [ -x "$candidate/bin/jpackage" ]; then
+                JAVA_HOME="$candidate"
+                break
+            fi
+        done
+    fi
 fi
 
 JAVA_HOME=${JAVA_HOME:-}
@@ -89,6 +100,7 @@ if [ "${RUN_TESTS:-}" = 1 ]; then
     MVN_SKIP=()
 fi
 mvn -B -ntp "${MVN_SKIP[@]+"${MVN_SKIP[@]}"}" \
+    -Pno-git-rev -Dgit.commit.id.describe="$DESCRIBE" \
     -Dproject.build.outputTimestamp="$OUTPUT_TIMESTAMP" \
     -DbuildTimestamp="$BUILD_TIME" \
     clean "$MVN_GOAL"
@@ -100,6 +112,10 @@ WORK=$(mktemp -d "${TMPDIR:-/tmp}/digital-macos.XXXXXX")
 trap 'rm -rf "$WORK"' EXIT
 mkdir -p "$OUT" "$WORK/input/bin" "$WORK/resources"
 cp target/Digital.jar src/main/resources/icons/splash.png "$WORK/input/"
+cp -R "$ROOT/src/main/dig/lib" "$WORK/input/lib"
+find "$WORK/input/lib" -name ".DS_Store" -delete 2>/dev/null || true
+chmod -R u=rwX,go=rX "$WORK/input/lib"
+find "$WORK/input/lib" -exec touch -t "$TOUCH_TIMESTAMP" {} + 2>/dev/null || true
 # the command "digital", Contents/app/bin/digital in the bundle
 cp "$MAC/digital" "$WORK/input/bin/digital"
 chmod 755 "$WORK/input/bin/digital"
@@ -157,6 +173,7 @@ APP="$WORK/Digital.app"
 
 # Generate localized InfoPlist.strings from lang_*.xml directly into Digital.app/Contents/Resources/<lang>.lproj/
 for lang_file in src/main/resources/lang/lang_*.xml; do
+    [[ "$lang_file" == *_ref.xml ]] && continue
     [[ "$lang_file" =~ lang_([a-z]{2})(_[a-zA-Z]+)?\.xml$ ]] || continue
     lang="${BASH_REMATCH[1]}"
     [ "$lang" = "zh" ] && lproj="zh-Hans.lproj" || lproj="${lang}.lproj"
@@ -169,6 +186,7 @@ for lang_file in src/main/resources/lang/lang_*.xml; do
         cat <<EOF > "$target_dir/InfoPlist.strings"
 "Digital Circuit" = "$escaped_type";
 "de.neemann.digital.dig" = "$escaped_type";
+"de.neemann.digital.gui.dig" = "$escaped_type";
 "CFBundleTypeName" = "$escaped_type";
 "UTTypeDescription" = "$escaped_type";
 EOF
@@ -176,13 +194,20 @@ EOF
     fi
 done
 
-# Re-sign the bundle ad-hoc to account for the newly added localization files
+# Build and integrate the native Swift Quick Look App Extension (.appex)
+echo "building Quick Look extension DigitalQuickLook.appex"
+mkdir -p "$APP/Contents/PlugIns"
+"$MAC/quicklook/build-appex.sh" "$APP/Contents/PlugIns" "$VERSION" "$TOUCH_TIMESTAMP"
+
+# Sign extension with its entitlements and re-sign the main bundle ad-hoc (without --deep to preserve extension entitlements)
+codesign --force --sign - --entitlements "$MAC/quicklook/DigitalQuickLook.entitlements" "$APP/Contents/PlugIns/DigitalQuickLook.appex"
 codesign --force --sign - "$APP"
 
 codesign --verify --deep --strict "$APP" || die "the signature of Digital.app is not valid"
-for f in MacOS/Digital MacOS/digital-cli app/bin/digital; do
+for f in MacOS/Digital MacOS/digital-cli app/bin/digital PlugIns/DigitalQuickLook.appex/Contents/MacOS/DigitalQuickLook; do
     [ -x "$APP/Contents/$f" ] || die "Contents/$f is missing in Digital.app"
 done
+[ -d "$APP/Contents/app/lib" ] || die "Contents/app/lib is missing in Digital.app"
 [ -f "$APP/Contents/Resources/digital-doc.icns" ] || die "the document icon is missing in Digital.app"
 
 ARCH=$(lipo -archs "$APP/Contents/MacOS/Digital")

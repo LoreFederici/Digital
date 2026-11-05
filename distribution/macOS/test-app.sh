@@ -25,6 +25,18 @@ mkdir -p "$2"
 OUT=$(cd "$2" && pwd)
 ROOT=$(cd "$(dirname "$0")/../.." && pwd)
 
+# Helper to execute a command with a maximum timeout (prevents hanging in headless environments)
+run_with_timeout() {
+    local timeout=$1
+    shift
+    "$@" &
+    local cmd_pid=$!
+    ( sleep "$timeout" && kill -9 "$cmd_pid" 2>/dev/null ) &
+    local watcher_pid=$!
+    wait "$cmd_pid" 2>/dev/null || true
+    kill -9 "$watcher_pid" 2>/dev/null || true
+}
+
 # pwd -P: the simulator is found by the real path of the app
 WORK=$(cd "$(mktemp -d "${TMPDIR:-/tmp}/digital-test.XXXXXX")" && pwd -P)
 MOUNT="$WORK/mount"
@@ -40,6 +52,7 @@ cleanup() {
         echo "warning: the disk image is still attached at $MOUNT" >&2
     fi
     # macOS must not remember the copy as an application for *.dig files
+    pluginkit -r "$APP/Contents/PlugIns/DigitalQuickLook.appex" 2>/dev/null || true
     "$LSREGISTER" -u "$APP" 2>/dev/null || true
     rm -rf "$WORK"
 }
@@ -57,9 +70,53 @@ CIRCUIT="$WORK/test circuit.dig"
 cp "$ROOT/src/main/dig/combinatorial/FullAdder.dig" "$CIRCUIT"
 
 echo "command line interface"
+[ -d "$APP/Contents/app/lib" ] || die "Contents/app/lib is missing in Digital.app"
 "$APP/Contents/app/bin/digital" test -circ "$CIRCUIT" || die "digital test"
 "$APP/Contents/app/bin/digital" svg -dig "$CIRCUIT" -svg "$WORK/circuit.svg" || die "digital svg"
 grep -q '<svg' "$WORK/circuit.svg" || die "digital svg has not created an SVG file"
+"$APP/Contents/app/bin/digital" export-headless -in "$CIRCUIT" -out "$WORK/circuit-headless.svg" || die "digital export-headless"
+grep -q '<svg' "$WORK/circuit-headless.svg" || die "export-headless has not created an SVG file"
+"$APP/Contents/app/bin/digital" export-headless -in "$CIRCUIT" || die "digital export-headless to cache"
+
+echo "testing embedded standard library components"
+CHIP_CIRCUIT="$WORK/74181-74182.dig"
+cp "$ROOT/src/test/resources/dig/test/74xx/74181-74182.dig" "$CHIP_CIRCUIT"
+"$APP/Contents/app/bin/digital" export-headless -in "$CHIP_CIRCUIT" -out "$WORK/chips.svg" || die "chips export-headless"
+if grep -q 'Manca la figura' "$WORK/chips.svg"; then
+    die "chips export contains missing shape error"
+fi
+
+echo "testing embedded sibling components"
+SIBLING_DIR="$WORK/siblings"
+mkdir -p "$SIBLING_DIR"
+cp "$ROOT/src/test/resources/dig/test/shapes/Adder.dig" "$SIBLING_DIR/"
+cp "$ROOT/src/test/resources/dig/test/shapes/4BitAdder.dig" "$SIBLING_DIR/"
+"$APP/Contents/app/bin/digital" export-headless -in "$SIBLING_DIR/4BitAdder.dig" -out "$WORK/adder.svg" || die "adder export-headless"
+if grep -q 'Manca la figura' "$WORK/adder.svg"; then
+    die "adder export contains missing shape error"
+fi
+grep -q 'Adder' "$WORK/adder.svg" || die "adder export missing Adder shape label"
+
+echo "verifying document type localization"
+grep -q 'Circuito Digital' "$APP/Contents/Resources/it.lproj/InfoPlist.strings" || die "it.lproj/InfoPlist.strings missing Circuito Digital"
+grep -q '"de.neemann.digital.gui.dig" = "Circuito Digital";' "$APP/Contents/Resources/it.lproj/InfoPlist.strings" || die "it.lproj/InfoPlist.strings missing de.neemann.digital.gui.dig"
+
+echo "quick look extension"
+APPEX="$APP/Contents/PlugIns/DigitalQuickLook.appex"
+[ -d "$APPEX" ] || die "DigitalQuickLook.appex not found in $APP"
+[ -x "$APPEX/Contents/MacOS/DigitalQuickLook" ] || die "DigitalQuickLook binary missing or not executable"
+codesign --verify --deep --strict "$APPEX" || die "DigitalQuickLook.appex signature is not valid"
+echo "architectures: $(lipo -archs "$APPEX/Contents/MacOS/DigitalQuickLook")"
+
+# Register plugin explicitly and query with pluginkit
+pluginkit -a "$APPEX" 2>/dev/null || true
+echo "querying plugin registration with pluginkit"
+pluginkit -m -p com.apple.quicklook.preview -i de.neemann.digital.quicklook 2>&1 || true
+
+# Test Quick Look preview generation with qlmanage (non-blocking with timeout)
+echo "testing Quick Look preview with qlmanage"
+run_with_timeout 3 qlmanage -p "$CIRCUIT" 2>&1 || true
+run_with_timeout 3 qlmanage -t -s 500 -o "$OUT" "$CIRCUIT" 2>&1 || true
 
 echo "simulator"
 LOG="$OUT/simulator-output.txt"
