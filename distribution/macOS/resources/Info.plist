@@ -5,7 +5,8 @@
   jpackage uses this file instead of its built-in template (see build-dmg.sh, option
   resource-dir) and replaces the DEPLOY_* placeholders. The DIGITAL_* placeholders are
   replaced by build-dmg.sh: the version, because jpackage rejects versions starting with
-  zero like 0.31, and the name of the document type, which is "Digital Circuit".
+  zero like 0.31, and the name of the document type, which is the English text of
+  fileType_digitalCircuit in lang_en.xml.
   Because the file is complete before jpackage signs the bundle, the bundle must not be
   modified afterwards.
   Differences to the jpackage template: minimum macOS version 11.0 (required by the

@@ -2,9 +2,15 @@
 <mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
     <mime-type type="text/x-digital">
         <comment>Digital file</comment>
-	    <comment xml:lang="en">Digital Circuit</comment>
-	    <comment xml:lang="de">Digital Schaltung</comment>
-	    <comment xml:lang="es">Circuito Digital</comment>
+        <comment xml:lang="de">Digital-Schaltung</comment>
+        <comment xml:lang="en">Digital Circuit</comment>
+        <comment xml:lang="es">Circuito de Digital</comment>
+        <comment xml:lang="fr">Circuit Digital</comment>
+        <comment xml:lang="it">Circuito Digital</comment>
+        <comment xml:lang="pt">Circuito do Digital</comment>
+        <comment xml:lang="ru">Схема Digital</comment>
+        <comment xml:lang="zh">Digital 电路</comment>
+        <comment xml:lang="zh_TW">Digital 電路</comment>
         <glob pattern="*.dig"/>
     </mime-type>
 </mime-info>

@@ -78,6 +78,7 @@ COMMIT_EPOCH=$(git log -1 --format=%ct)
 OUTPUT_TIMESTAMP=$(date -u -r "$COMMIT_EPOCH" +%Y-%m-%dT%H:%M:%SZ)
 BUILD_TIME=$(date -u -r "$COMMIT_EPOCH" '+%Y-%m-%d %H:%M')
 YEAR=$(date -u -r "$COMMIT_EPOCH" +%Y)
+TOUCH_TIMESTAMP=$(date -u -r "$COMMIT_EPOCH" +%Y%m%d%H%M.%S)
 
 echo "building Digital $VERSION ($DESCRIBE) with $("$JAVA_HOME/bin/java" -version 2>&1 | head -1)"
 
@@ -105,8 +106,11 @@ chmod 755 "$WORK/input/bin/digital"
 # jpackage only accepts versions starting with a number > 0, so the real version is
 # written to Info.plist directly and jpackage gets a placeholder, which is used only
 # in its internal files (.jpackage.xml and Digital.cfg).
-# The name of the *.dig document type.
-DOC_TYPE="Digital Circuit"
+# The name of the *.dig document type is the English text of fileType_digitalCircuit,
+# which is also used by the Open dialog. It is escaped for XML and for sed.
+DOC_TYPE=$(xmllint --xpath 'normalize-space(/resources/string[@name="fileType_digitalCircuit"])' \
+    src/main/resources/lang/lang_en.xml)
+[ -n "$DOC_TYPE" ] || die "fileType_digitalCircuit not found in src/main/resources/lang/lang_en.xml"
 DOC_TYPE_SED=$(printf '%s' "$DOC_TYPE" | sed -e 's/&/\&amp;/g' -e 's/</\&lt;/g' -e 's/>/\&gt;/g' -e 's/[\\|&]/\\&/g')
 sed -e "s/DIGITAL_VERSION/$VERSION/g" -e "s|DIGITAL_DOCUMENT_TYPE|$DOC_TYPE_SED|g" \
     "$MAC/resources/Info.plist" > "$WORK/resources/Info.plist"
@@ -150,6 +154,31 @@ LOCALES=en,de,es,fr,it,pt,zh
     --jlink-options "--strip-debug --no-man-pages --no-header-files --strip-native-commands --include-locales=$LOCALES"
 
 APP="$WORK/Digital.app"
+
+# Generate localized InfoPlist.strings from lang_*.xml directly into Digital.app/Contents/Resources/<lang>.lproj/
+for lang_file in src/main/resources/lang/lang_*.xml; do
+    [[ "$lang_file" =~ lang_([a-z]{2})(_[a-zA-Z]+)?\.xml$ ]] || continue
+    lang="${BASH_REMATCH[1]}"
+    [ "$lang" = "zh" ] && lproj="zh-Hans.lproj" || lproj="${lang}.lproj"
+
+    localized_type=$(xmllint --xpath 'normalize-space(/resources/string[@name="fileType_digitalCircuit"])' "$lang_file" 2>/dev/null || true)
+    if [ -n "$localized_type" ]; then
+        escaped_type=$(printf '%s' "$localized_type" | sed 's/\\/\\\\/g; s/"/\\"/g')
+        target_dir="$APP/Contents/Resources/$lproj"
+        mkdir -p "$target_dir"
+        cat <<EOF > "$target_dir/InfoPlist.strings"
+"Digital Circuit" = "$escaped_type";
+"de.neemann.digital.dig" = "$escaped_type";
+"CFBundleTypeName" = "$escaped_type";
+"UTTypeDescription" = "$escaped_type";
+EOF
+        touch -t "$TOUCH_TIMESTAMP" "$target_dir/InfoPlist.strings" "$target_dir" 2>/dev/null || true
+    fi
+done
+
+# Re-sign the bundle ad-hoc to account for the newly added localization files
+codesign --force --sign - "$APP"
+
 codesign --verify --deep --strict "$APP" || die "the signature of Digital.app is not valid"
 for f in MacOS/Digital MacOS/digital-cli app/bin/digital; do
     [ -x "$APP/Contents/$f" ] || die "Contents/$f is missing in Digital.app"
