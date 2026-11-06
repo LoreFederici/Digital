@@ -20,15 +20,73 @@ set -euo pipefail
 # the permissions of the files in Digital.app must not depend on the user's settings
 umask 022
 
-die() { echo "error: $*" >&2; exit 1; }
+die() { echo "[ERROR] $*" >&2; exit 1; }
 
 ROOT=$(cd "$(dirname "$0")/../.." && pwd)
 MAC="$ROOT/distribution/macOS"
 OUT="$ROOT/target/macos"
 cd "$ROOT"
 
-[ "$(uname -s)" = Darwin ] || die "this script has to run on macOS"
-JAVA_HOME=${JAVA_HOME:-$(/usr/libexec/java_home -v 17+)}
+[ "$(uname -s)" = Darwin ] || die "This script has to run on macOS"
+
+JAVA_HOME=${JAVA_HOME:-$(/usr/libexec/java_home -v 17+ 2>/dev/null || true)}
+JPACKAGE="${JAVA_HOME}/bin/jpackage"
+
+if [ -z "${JAVA_HOME}" ] || [ ! -x "$JPACKAGE" ]; then
+    readonly ERR_JDK_REQ="JDK 17+"
+    readonly ERR_ABORT="Build aborted"
+
+    echo "[WARNING] jpackage not found in ${JAVA_HOME:-default} ($ERR_JDK_REQ required)" >&2
+
+    custom_triggered=false
+    for i in {5..1}; do
+        echo -ne "\rAuto-detecting a compatible JDK in ${i}s... (Press any key to cancel) "
+        if read -t 1 -n 1 key; then
+            echo
+            read -rp "Enter a custom JAVA_HOME path? [y/N] " custom_choice
+            custom_choice=${custom_choice:-n}
+            if [[ "$custom_choice" =~ ^[yY][eS]|[yY]$ ]]; then
+                read -rp "Enter path for valid JAVA_HOME ($ERR_JDK_REQ): " JAVA_HOME
+                [ -n "$JAVA_HOME" ] && [ -x "$JAVA_HOME/bin/jpackage" ] || die "The provided path does not contain a valid jpackage: $ERR_JDK_REQ required"
+                echo "Using custom JAVA_HOME: $JAVA_HOME"
+                custom_triggered=true
+            else
+                die "$ERR_ABORT"
+            fi
+            break
+        fi
+    done
+    echo
+
+    if [ "$custom_triggered" = false ]; then
+        VALID_JH=$(/usr/libexec/java_home -v 17+ 2>/dev/null || true)
+        if [ -n "$VALID_JH" ] && [ -x "$VALID_JH/bin/jpackage" ]; then
+            JAVA_HOME="$VALID_JH"
+            echo "Using detected JDK 17+: $JAVA_HOME"
+        else
+            echo "No compatible local JDK found"
+            if command -v brew >/dev/null 2>&1; then
+                read -rp "Would you like to install Eclipse Temurin JDK via Homebrew and proceed with building? [Y/n] " brew_choice
+                brew_choice=${brew_choice:-y}
+                if [[ "$brew_choice" =~ ^[yY][eS]|[yY]$ ]]; then
+                    brew install --cask temurin
+                    VALID_JH=$(/usr/libexec/java_home -v 17+ 2>/dev/null || true)
+                    if [ -n "$VALID_JH" ] && [ -x "$VALID_JH/bin/jpackage" ]; then
+                        JAVA_HOME="$VALID_JH"
+                        echo "Successfully installed and configured JDK: $JAVA_HOME"
+                    else
+                        die "Temurin installed via Homebrew but jpackage could not be automatically located"
+                    fi
+                else
+                    die "$ERR_ABORT"
+                fi
+            else
+                die "$ERR_ABORT"
+            fi
+        fi
+    fi
+fi
+
 export JAVA_HOME
 JPACKAGE="$JAVA_HOME/bin/jpackage"
 [ -x "$JPACKAGE" ] || die "jpackage not found in $JAVA_HOME (JDK 17 or newer required)"
@@ -49,8 +107,9 @@ COMMIT_EPOCH=$(git log -1 --format=%ct)
 OUTPUT_TIMESTAMP=$(date -u -r "$COMMIT_EPOCH" +%Y-%m-%dT%H:%M:%SZ)
 BUILD_TIME=$(date -u -r "$COMMIT_EPOCH" '+%Y-%m-%d %H:%M')
 YEAR=$(date -u -r "$COMMIT_EPOCH" +%Y)
+TOUCH_TIMESTAMP=$(date -u -r "$COMMIT_EPOCH" +%Y%m%d%H%M.%S)
 
-echo "building Digital $VERSION ($DESCRIBE) with $("$JAVA_HOME/bin/java" -version 2>&1 | head -1)"
+echo "Building Digital $VERSION ($DESCRIBE) with $("$JAVA_HOME/bin/java" -version 2>&1 | head -1)"
 
 mvn -B -ntp -DskipTests -Djacoco.skip=true \
     -Dproject.build.outputTimestamp="$OUTPUT_TIMESTAMP" \
@@ -142,7 +201,5 @@ ln -s /Applications "$STAGE/Applications"
 hdiutil create -quiet -volname Digital -srcfolder "$STAGE" -fs APFS -format UDZO -ov "$OUT/$NAME.dmg"
 
 (cd "$OUT" && shasum -a 256 "$NAME.dmg" "$NAME.build-info.txt" > "$NAME.sha256")
-echo
 cat "$OUT/$NAME.build-info.txt"
-echo
 cat "$OUT/$NAME.sha256"
