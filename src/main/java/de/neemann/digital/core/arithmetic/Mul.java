@@ -68,7 +68,7 @@ public class Mul extends Node implements Element, Countable {
     @Override
     public void init(Model model) throws NodeException {
         if (bits > 32)
-            throw new BitsException(Lang.get("err_toManyBits_Found_N0_maxIs_N1", bits, 32), this);
+            throw new BitsException(Lang.get("err_tooManyBits_Found_N0_maxIs_N1", bits, 32), this);
     }
 
     @Override

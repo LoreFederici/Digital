@@ -18,7 +18,7 @@ public class TruthTableFormatterHex implements TruthTableFormatter {
     @Override
     public String format(TruthTable truthTable) throws ExpressionException {
         if (truthTable.getResultCount() > 63)
-            throw new ExpressionException(Lang.get("err_tableHasToManyResultColumns"));
+            throw new ExpressionException(Lang.get("err_tableHasTooManyResultColumns"));
 
         StringBuilder sb = new StringBuilder();
         sb.append("v2.0 raw\n");

@@ -227,9 +227,9 @@ public class PinMap {
             p = searchFirstFreePin(direction, in);
         if (p == null) {
             if (direction.equals(PinDescription.Direction.input))
-                throw new PinMapException(Lang.get("err_pinMap_toMannyInputsDefined"));
+                throw new PinMapException(Lang.get("err_pinMap_tooManyInputsDefined"));
             else
-                throw new PinMapException(Lang.get("err_pinMap_toMannyOutputsDefined"));
+                throw new PinMapException(Lang.get("err_pinMap_tooManyOutputsDefined"));
         } else if (!isAvailable(direction, p)) {
             if (direction.equals(PinDescription.Direction.input))
                 throw new PinMapException(Lang.get("err_pinMap_pin_N0_isNotAnInput", p));

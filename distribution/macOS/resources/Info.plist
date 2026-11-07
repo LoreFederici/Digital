@@ -48,7 +48,7 @@
   <array>
    <dict>
     <key>CFBundleTypeName</key>
-    <string>Digital Circuit</string>
+    <string>DIGITAL_DOCUMENT_TYPE</string>
     <key>CFBundleTypeRole</key>
     <string>Editor</string>
     <key>LSHandlerRank</key>
@@ -67,7 +67,7 @@
     <key>UTTypeIdentifier</key>
     <string>de.neemann.digital.dig</string>
     <key>UTTypeDescription</key>
-    <string>Digital Circuit</string>
+    <string>DIGITAL_DOCUMENT_TYPE</string>
     <key>UTTypeConformsTo</key>
     <array>
      <string>public.xml</string>

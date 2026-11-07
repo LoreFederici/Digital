@@ -385,7 +385,7 @@ public class ModelAnalyser {
 
     private void simpleFiller(TruthTable tt) throws NodeException, AnalyseException {
         if (inputs.size() > MAX_INPUTS_ALLOWED)
-            throw new AnalyseException(Lang.get("err_toManyInputs_max_N0_is_N1", MAX_INPUTS_ALLOWED, inputs.size()));
+            throw new AnalyseException(Lang.get("err_tooManyInputs_max_N0_is_N1", MAX_INPUTS_ALLOWED, inputs.size()));
 
 
         BitSetter bitsetter = new BitSetter(inputs.size()) {
@@ -419,7 +419,7 @@ public class ModelAnalyser {
 
             ArrayList<Signal> ins = reorder(da.getInputs(out), inputs);
             if (ins.size() > MAX_INPUTS_ALLOWED)
-                throw new AnalyseException(Lang.get("err_toManyInputs_max_N0_is_N1", MAX_INPUTS_ALLOWED, ins.size()));
+                throw new AnalyseException(Lang.get("err_tooManyInputs_max_N0_is_N1", MAX_INPUTS_ALLOWED, ins.size()));
 
             int rows = 1 << ins.size();
             BoolTableByteArray e = new BoolTableByteArray(rows);
