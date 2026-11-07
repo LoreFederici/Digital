@@ -26,7 +26,7 @@ done
 contents=$(cd "$(dirname "$self")/../.." && pwd -P)
 
 case ${1-} in
-    test|svg|stats|run)
+    test|svg|stats|run|export-headless)
         # same as "java -cp Digital.jar CLI", without a window or dock icon
         exec "$contents/MacOS/digital-cli" "$@"
         ;;
@@ -34,6 +34,7 @@ case ${1-} in
         echo "usage: digital [file]                 starts the simulator"
         echo "       digital test -circ <file> ...  tests a circuit"
         echo "       digital svg -dig <file> ...    exports a circuit as SVG"
+        echo "       digital export-headless -in <file> [-out <file>] exports circuit SVG for Quick Look"
         echo "       digital stats -dig <file> ...  writes the statistics of a circuit as CSV"
         echo "       digital run -dig <file>        runs a circuit without a window"
         echo
