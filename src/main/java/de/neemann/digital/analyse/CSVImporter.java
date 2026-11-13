@@ -110,7 +110,7 @@ public final class CSVImporter {
             else {
                 if (generator == null) {
                     if (mask == 0)
-                        throw new IOException(Lang.get("err_csvToManyValues"));
+                        throw new IOException(Lang.get("err_csvTooManyValues"));
                     if (e.equals("1"))
                         row |= mask;
                     else if (e.equals("x"))
@@ -118,7 +118,7 @@ public final class CSVImporter {
                     mask = mask >> 1;
                 } else {
                     if (rCol >= resNum)
-                        throw new IOException(Lang.get("err_csvToManyValues"));
+                        throw new IOException(Lang.get("err_csvTooManyValues"));
                     if (e.equals("1"))
                         generator.addCol(rCol, 1);
                     else if (e.equals("x"))

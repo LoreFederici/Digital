@@ -139,12 +139,12 @@ public class ValueTableDialog extends JDialog {
                     tabIcon = ICON_FAILED;
                     errorTabIndex = i;
                 }
-                if (testResult.toManyResults())
+                if (testResult.tooManyResults())
                     tabName += " " + Lang.get("msg_test_missingLines");
 
                 ValueTableHolder vth = new ValueTableHolder(testResult.getValueTable(), ts.getTestCaseDescription());
                 tp.addTab(tabName, tabIcon, new JScrollPane(createTable(vth)));
-                if (testResult.toManyResults())
+                if (testResult.tooManyResults())
                     tp.setToolTipTextAt(i, new LineBreaker().toHTML().breakLines(Lang.get("msg_test_missingLines_tt")));
                 resultTableData.add(vth);
                 i++;

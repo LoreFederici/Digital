@@ -31,7 +31,7 @@ public class LineEmitterRepeat implements LineEmitter {
         this.inner = inner;
 
         if (size > MAX_LOOPS)
-            throw new ParserException(Lang.get("err_toManyIterations"));
+            throw new ParserException(Lang.get("err_tooManyIterations"));
     }
 
     @Override

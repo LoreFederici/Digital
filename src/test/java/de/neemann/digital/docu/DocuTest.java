@@ -317,26 +317,31 @@ public class DocuTest extends TestCase {
         final File library = new File(target, "library.xml");
         write74xx(library);
 
-        for (Language l : Lang.getBundle().getSupportedLanguages()) {
-            // set language
-            Lang.setActualRuntimeLanguage(l);
-            final String basename = "Documentation_" + l.getName();
-            // write xml
-            File xml = new File(target, basename + ".xml");
-            try (Writer w = new OutputStreamWriter(new FileOutputStream(xml), StandardCharsets.UTF_8)) {
-                writeXML(w, images, l.getName(), library);
+        Language origLang = Lang.currentLanguage();
+        try {
+            for (Language l : Lang.getBundle().getSupportedLanguages()) {
+                // set language
+                Lang.setActualRuntimeLanguage(l);
+                final String basename = "Documentation_" + l.getName();
+                // write xml
+                File xml = new File(target, basename + ".xml");
+                try (Writer w = new OutputStreamWriter(new FileOutputStream(xml), StandardCharsets.UTF_8)) {
+                    writeXML(w, images, l.getName(), library);
+                }
+
+                // start xslt transformation
+                File xslFO = new File(target, basename + ".fo");
+                File xslt = new File(Resources.getRoot(), "docu/elem2fo.xslt");
+                startXalan(xml, xslt, xslFO);
+
+                // write pdf
+                File pdf = new File(target, basename + ".pdf");
+                startFOP(fopFactory, xslFO, pdf);
+
+                copy(pdf, new File(target2, "Doc_" + l.getFileName() + ".pdf"));
             }
-
-            // start xslt transformation
-            File xslFO = new File(target, basename + ".fo");
-            File xslt = new File(Resources.getRoot(), "docu/elem2fo.xslt");
-            startXalan(xml, xslt, xslFO);
-
-            // write pdf
-            File pdf = new File(target, basename + ".pdf");
-            startFOP(fopFactory, xslFO, pdf);
-
-            copy(pdf, new File(target2, "Doc_" + l.getFileName() + ".pdf"));
+        } finally {
+            Lang.setActualRuntimeLanguage(origLang);
         }
     }
 

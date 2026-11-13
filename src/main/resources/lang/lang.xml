@@ -8,7 +8,7 @@ Then run the test case "de.neemann.digital.lang.TestLang.testAdditionalLanguages
 
 In the target directory you can now find a diff file for the
 new language. This diff file contains a list of English text
-fragments and a empty xml tag for the translated text fragment.
+fragments and an empty xml tag for the translated text fragment.
 Fill all the empty language tags.
 
 To import the translated text, start the class
