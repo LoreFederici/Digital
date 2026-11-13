@@ -15,6 +15,7 @@ import de.neemann.digital.draw.elements.Circuit;
 import de.neemann.digital.draw.graphics.Export;
 import de.neemann.digital.draw.graphics.GraphicSVG;
 import de.neemann.digital.draw.graphics.SVGSettings;
+import de.neemann.digital.gui.QuickLookCache;
 import de.neemann.digital.lang.Lang;
 
 import java.io.File;
@@ -58,6 +59,45 @@ public class SVGExport extends BasicCommand {
             new Export(circuit, o -> new GraphicSVG(o, attr)).export(new File(outName));
         } catch (IOException e) {
             throw new CLIException(Lang.get("cli_errorCreatingSVG"), e);
+        }
+    }
+
+    /**
+     * Executes headless export and returns status code.
+     * Used for macOS Quick Look preview generation and headless tooling.
+     *
+     * @param args arguments (&lt;input.dig&gt; [&lt;output.svg&gt;])
+     * @return exit code (0 for success)
+     */
+    public static int runHeadless(String[] args) {
+        if (args == null || args.length < 1) {
+            System.err.println("Usage: SVGExport <input.dig> [output.svg]");
+            return 1;
+        }
+        try {
+            File inputFile = new File(args[0]);
+            if (args.length == 1 || args[1] == null || args[1].trim().isEmpty()) {
+                QuickLookCache.exportToCache(inputFile);
+            } else {
+                QuickLookCache.exportCircuitSvg(inputFile, new File(args[1]));
+            }
+            return 0;
+        } catch (Exception e) {
+            System.err.println("Export failed: " + e.getMessage());
+            e.printStackTrace(System.err);
+            return 2;
+        }
+    }
+
+    /**
+     * Standalone main method taking &lt;input.dig&gt; [&lt;output.svg&gt;].
+     *
+     * @param args arguments
+     */
+    public static void main(String[] args) {
+        int code = runHeadless(args);
+        if (code != 0) {
+            System.exit(code);
         }
     }
 }

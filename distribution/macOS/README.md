@@ -41,6 +41,7 @@ How the app is created:
 - `resources/Info.plist` is used instead of the `jpackage template. It declares the `*.dig` document type and the minimum macOS version.
 - Double clicks in the Finder are not passed to the application as command line arguments but as an "open files" event. It is handled by `src/main/java/de/neemann/digital/gui/MacOSOpenFilesHandler.java`.
 - `Digital.icns` and `Assets.car` provide the macOS application icon, compiled from `Digital.icon`. The document icon for `*.dig` files is dynamically rendered at runtime by macOS (`iconservicesd`) from `DigitalCircuitDocumentBackground` (in `Assets.car`, sourced from `DigitalCircuitDocument.png`) and the system-generated folded page template with the `DIG` extension badge.
+- `quicklook/build-appex.sh` compiles the Quick Look extension (`DigitalQuickLook.appex`) into `Contents/PlugIns/`. On macOS 12 or newer, it renders `*.dig` previews in Finder via JNI (`SVGExport`) and a local SVG cache (`QuickLookCache.java`).
 
 ## Checking the origin of a disk image
 

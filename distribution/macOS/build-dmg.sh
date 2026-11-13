@@ -344,11 +344,15 @@ EOF
     fi
 done
 
-# Re-sign the bundle ad-hoc to account for the newly added localization files
+# Build and integrate the native Swift Quick Look App Extension (.appex)
+mkdir -p "$APP/Contents/PlugIns"
+"$MAC/quicklook/build-appex.sh" "$APP/Contents/PlugIns" "$VERSION" "$TOUCH_TIMESTAMP"
+
+# Re-sign the main bundle ad-hoc without --deep to preserve extension entitlements
 codesign --force --sign - "$APP"
 
 codesign --verify --deep --strict "$APP" || die "The signature of Digital.app is not valid"
-for f in MacOS/Digital MacOS/digital-cli app/bin/digital; do
+for f in MacOS/Digital MacOS/digital-cli app/bin/digital PlugIns/DigitalQuickLook.appex/Contents/MacOS/DigitalQuickLook; do
     [ -x "$APP/Contents/$f" ] || die "Contents/$f is missing in Digital.app"
 done
 [ -d "$APP/Contents/app/lib" ] || die "Contents/app/lib is missing in Digital.app"

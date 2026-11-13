@@ -26,6 +26,18 @@ mkdir -p "$2"
 OUT=$(cd "$2" && pwd)
 ROOT=$(cd "$(dirname "$0")/../.." && pwd)
 
+# Helper to execute a command with a maximum timeout (prevents hanging in headless environments)
+run_with_timeout() {
+    local timeout=$1
+    shift
+    "$@" &
+    local cmd_pid=$!
+    ( sleep "$timeout" && kill -9 "$cmd_pid" 2>/dev/null ) &
+    local watcher_pid=$!
+    wait "$cmd_pid" 2>/dev/null || true
+    kill -9 "$watcher_pid" 2>/dev/null || true
+}
+
 # Resolve system language to match Digital's localized missing shape string
 SYS_LANG=$(defaults read -g AppleLanguages 2>/dev/null | grep -Eo '"[a-z]{2}(-[A-Z]+)?"' | head -1 | tr -d '"' | cut -d'-' -f1 || echo "en")
 LANG_XML="$ROOT/src/main/resources/lang/lang_${SYS_LANG}.xml"
@@ -60,6 +72,7 @@ cleanup() {
         echo "[WARNING] The disk image is still attached at $MOUNT" >&2
     fi
     # macOS must not remember the copy as an application for *.dig files
+    pluginkit -r "$APP/Contents/PlugIns/DigitalQuickLook.appex" 2>/dev/null || true
     "$LSREGISTER" -u "$APP" 2>/dev/null || true
     rm -rf "$WORK"
 }
@@ -105,6 +118,23 @@ echo "Verifying document type localization"
 IT_DOC_TYPE=$(xmllint --xpath 'normalize-space(/resources/string[@name="fileType_digitalCircuit"])' "$ROOT/src/main/resources/lang/lang_it.xml")
 grep -q "$IT_DOC_TYPE" "$APP/Contents/Resources/it.lproj/InfoPlist.strings" || die "it.lproj/InfoPlist.strings missing $IT_DOC_TYPE"
 grep -q "\"de.neemann.digital.gui.dig\" = \"$IT_DOC_TYPE\";" "$APP/Contents/Resources/it.lproj/InfoPlist.strings" || die "it.lproj/InfoPlist.strings missing de.neemann.digital.gui.dig"
+
+echo "Quick Look extension"
+APPEX="$APP/Contents/PlugIns/DigitalQuickLook.appex"
+[ -d "$APPEX" ] || die "DigitalQuickLook.appex not found in $APP"
+[ -x "$APPEX/Contents/MacOS/DigitalQuickLook" ] || die "DigitalQuickLook binary missing or not executable"
+codesign --verify --deep --strict "$APPEX" || die "DigitalQuickLook.appex signature is not valid"
+echo "Architectures: $(lipo -archs "$APPEX/Contents/MacOS/DigitalQuickLook")"
+
+# Register plugin explicitly and query with pluginkit
+pluginkit -a "$APPEX" 2>/dev/null || true
+echo "Querying plugin registration with pluginkit"
+pluginkit -m -p com.apple.quicklook.preview -i de.neemann.digital.quicklook 2>&1 || true
+
+# Test Quick Look preview generation with qlmanage (non-blocking with timeout)
+echo "Testing Quick Look preview with qlmanage"
+run_with_timeout 3 qlmanage -p "$CIRCUIT" 2>&1 || true
+run_with_timeout 3 qlmanage -t -s 500 -o "$OUT" "$CIRCUIT" 2>&1 || true
 
 echo "Simulator"
 LOG="$OUT/simulator-output.txt"
