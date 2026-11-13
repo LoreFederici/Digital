@@ -91,7 +91,7 @@ public class KarnaughMap implements Iterable<KarnaughMap.Cover> {
                 headerBottom = new Header(mapLayout.get(3), !bottomMode, bottomMode, bottomMode, !bottomMode).toCols(4, this);
                 break;
             default:
-                throw new KarnaughException(Lang.get("err_toManyVars"));
+                throw new KarnaughException(Lang.get("err_tooManyVars"));
         }
         for (Cell c : cells)   // set the row index of the bool table to the cells
             c.createBoolTableRow();

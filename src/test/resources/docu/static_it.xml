@@ -21,10 +21,10 @@
                 Se ci sono errori nel circuito, un messaggio appropriato è mostrato e i componenti o cavi affetti da problemi sono evidenziati.
                 Se il circuito non ha errori, la simulazione è abilitata. Ora si può interagire con l'esecuzione della simulazione.
                 Nella modalità simulazione non è possibile modificare il circuito. Per far ciò, bisogna attivare la modalità di modifica ancora,
-                fermando prima la simulazione.
+                arrestando prima la simulazione.
             </par>
         </subchapter>
-        <subchapter heading="Primi Passi">
+        <subchapter heading="Primi passi">
             <par><image src="scr00.png"/></par>
             <par>
                 Come primo esempio, un circuito è costruito con una porta XOR.
@@ -33,18 +33,20 @@
                 il tasto ESC in qualsiasi momento.
                 Inizia selezionando un componente di ingresso.
                 Questo può essere controllato interattivamente più tardi utilizzando il mouse.
+            </par>
             <par><image src="scr01.png"/></par>
             <par>
                 Dopo la selezione, il primo ingresso può essere posizionato nel pannello di progettazione.
-                Il pallino rosso sul simbolo del componente di ingresso è un punto di connessione tra il componente ed il cavo,
+                Il pallino rosso sul simbolo del componente di ingresso è un punto di connessione tra il componente e il cavo,
                 che sarà connesso più avanti.
                 Il colore rosso indica un'uscita. Questo significa che la porta definisce un valore di segnale in uscita che può
                 pilotare un cavo.
             </par>
             <par><image src="scr02.png"/></par>
             <par>
-                Nella stessa maniera, un secondo ingresso è aggiunto. Si ritiene buona pratica posizionarlo direttamente sotto il primo ingresso.
-            </par><image src="scr03.png"/></par>
+                Nella stessa maniera, si aggiunge un secondo ingresso. Si ritiene buona pratica posizionarlo direttamente sotto il primo ingresso.
+            </par>
+            <par><image src="scr03.png"/></par>
             <par>
                 Dopo aver aggiunto tutti gli ingressi, la porta XOR è selezionata. Questa porta rappresenta la funzione logica.
             </par>
@@ -75,7 +77,7 @@
             <par>
                 L'interazione con il circuito è possibile quando la simulazione è stata avviata.
                 Questo si effettua premendo il bottone di avvio localizzato nella barra degli strumenti.
-                Dopo aver avviato la simulazione, il colore dei cavi cambia e gli ingressi ed uscite sono ora calcolati.
+                Dopo aver avviato la simulazione, il colore dei cavi cambia e gli ingressi e uscite sono ora calcolati.
                 Verde chiaro indica un valore logico "1", mentre invece verde scuro indica un valore logico "0".
                 Nella figura di sopra, tutti i cavi hanno un valore "0".
             </par>
@@ -87,34 +89,34 @@
             </par>
             <par><image src="scr10.png"/></par>
             <par>
-                Per un ulteriore cambiamento del circuito, la simulazione va prima fermata. Il modo più facile di fare ciò
+                Per un ulteriore cambiamento del circuito, la simulazione va prima arrestata. Il modo più facile di fare ciò
                 è con il bottone di stop nella barra degli strumenti. Premendo il bottone del mouse su un componente con il tasto destro
                 (control-click su macOS) apre una finestra di dialogo che mostra le proprietà del componente. L'etichetta "A"
                 può essere definita per il primo ingresso tramite questo dialogo.
             </par>
             <par><image src="scr11.png"/></par>
             <par>
-                Nello stesso modo, le etichette per i rimanenti ingressi ed uscite possono essere definite. L'opzione nel menù
+                Nello stesso modo, le etichette per i rimanenti ingressi e uscite possono essere definite. L'opzione nel menù
                 <e>Analisi</e> contiene una funzionalità di <e>Analisi</e>. Questa funzione effettua un'analisi del circuito attuale.
-                Questo rimane comunque possibile se tutti gli ingressi ed uscite sono stati etichettati appropriatamente.
+                Questo rimane comunque possibile se tutti gli ingressi e uscite sono stati etichettati appropriatamente.
             </par>
             <par><image src="scr12.png"/></par>
             <par>
-                La tabella di verità del circuito simulato appare in una nuova finestra. Sotto la tabella si possono trovare
+                La tavola di verità del circuito simulato appare in una nuova finestra. Sotto la tavola si possono trovare
                 le espressioni algebriche associate al circuito. Se ci sono più possibili espressioni algebriche, una finestra
                 separata si aprirà, mostrando tutte le possibili espressioni.
             </par>
             <par><image src="scr13.png"/></par>
             <par>
-                La finestra di dialogo contenente la tabella ha una opzione nel menù principale chiamata <e>K-Map</e>. Questa consente la
-                visualizzazione della tabella di verità con una mappa di Karnaugh.
+                La finestra di dialogo contenente la tavola ha un'opzione nel menù principale chiamata <e>Mappa di Karnaugh</e>. Questa consente la
+                visualizzazione della tavola di verità con una mappa di Karnaugh.
             </par>
             <par><image src="scr14.png"/></par>
             <par>
                 Nella parte superiore di questa finestra di dialogo c'è una lista che consente la selezione dell'espressione
                 desiderata da visualizzare nella mappa di Karnaugh. In questo modo è possibile, per esempio, illustrare come
                 alcune espressioni algebriche equivalenti possono risultare. In questo esempio però c'è una sola espressione
-                minimizzata. La tabella di verità può anche essere modificata cliccando sulla mappa di Karnaugh.
+                minimizzata. La tavola di verità può anche essere modificata cliccando sulla mappa di Karnaugh.
             </par>
         </subchapter>
         <subchapter heading="Cavi">
@@ -123,10 +125,10 @@
                 posizionandoli direttamente l'uno vicino all'altro.
             </par>
             <par>
-                In aggiunta, ci sono soltanto connessioni tra un punto terminale di un cavo ed un componente.
+                In aggiunta, ci sono soltanto connessioni tra un punto terminale di un cavo e un componente.
                 Se un pin di un componente è posizionato nel mezzo di un cavo, nessuna connessione è creata tra il componente
-                ed il cavo. Il cavo quindi deve terminare su ogni pin al quale lo si vuole connettere. Anche se il componente
-                tunnel è utilizzato, ci deve essere un cavo tra il pin ed il componente tunnel.
+                e il cavo. Il cavo quindi deve terminare su ogni pin al quale lo si vuole connettere. Anche se il componente
+                tunnel è utilizzato, ci deve essere un cavo tra il pin e il componente tunnel.
             </par>
             <par>
                 Il componente deve essere selezionato usando lo strumento di selezione rettangolare per spostarlo assieme ai
@@ -138,7 +140,7 @@
                 Il tasto S invece consente la divisione di un segmento in due segmenti rispettivi.
             </par>
         </subchapter>
-        <subchapter heading="Progettazione Gerarchica">
+        <subchapter heading="Progettazione gerarchica">
             <par>
                 Se un circuito complesso viene costruito, questo può velocemente causare confusione. Per tenerne traccia,
                 le differenti parti del circuito possono essere memorizzate in file separati. Questo meccanismo rende possibile
@@ -150,7 +152,7 @@
             <par><image src="scr20.png"/></par>
             <par>
                 A titolo di esempio, si consideri un sommatore a 4 bit: prima si costruisce un semplice half-adder. Questo
-                consiste in una porta XOR ed una AND. La somma dei due bit "A" e "B" è data nelle uscite "S" e "C".
+                consiste in una porta XOR e una AND. La somma dei due bit "A" e "B" è data nelle uscite "S" e "C".
                 Il circuito è memorizzato nel file <e>halfAdder.dig</e>.
             </par>
             <par><image src="scr21.png"/></par>
@@ -164,40 +166,40 @@
             </par>
             <par><image src="scr22.png"/></par>
             <par>
-                Per verificare la corretta funzionalità del sommatore, un test case dovrebbe essere aggiunto. In un test case,
-                la tabella di verità viene specificata, che dovrebbe rispecchiare quella del circuito. In questo modo è
+                Per verificare la corretta funzionalità del sommatore, un caso di collaudo dovrebbe essere aggiunto. In un caso di collaudo,
+                la tavola di verità viene specificata, che dovrebbe rispecchiare quella del circuito. In questo modo è
                 automaticamente possibile verificare la corrispondenza.
             </par>
             <par><image src="scr23.png"/></par>
             <par>
-                I test possono essere eseguiti nella schermata di modifica del test case oppure con il rispettivo bottone
-                nella barra degli strumenti. Le celle della tabella evidenziate in verte indicano che le uscite del circuito
-                corrispondono alla tabella di verità costruita dal circuito.
+                I collaudi possono essere eseguiti nella schermata di modifica del caso di collaudo oppure con il rispettivo bottone
+                nella barra degli strumenti. Le celle della tavola evidenziate in verde indicano che le uscite del circuito
+                corrispondono alla tavola di verità costruita dal circuito.
             </par>
             <par><image src="scr24.png"/></par>
             <par>
                 Ora i sommatori possono essere composti insieme per creare un ripple-adder.
                 In questo caso, il riporto in uscita di una addizione è inviato come riporto in ingresso all'addizione
-                successiva del bit un ordine più alto, come si usa fare nella somma su carta.
-                Questo sommatore a 4 bit può essere testato. A questo scopo, un test case è stato inserito.
+                successiva del bit di un ordine più alto, come si usa fare nella somma su carta.
+                Questo sommatore a 4 bit può essere collaudato. A questo scopo, un caso di collaudo è stato inserito.
             </par>
             <par><image src="scr25.png"/></par>
             <par>
-                Questo test case effettua un test al 100%, che è possibile soltanto con circuiti relativamente semplici: tutte le
+                Questo caso di collaudo effettua un controllo al 100%, che è possibile soltanto con circuiti relativamente semplici: tutte le
                 512 combinazioni degli ingressi sono applicate al circuito e il risultato viene controllato.
-                La prima lina elenca i segnali di ingresso ed uscita. Sotto di essa, i valori di ingresso da applicare e i valori di uscita
-                da controllare sono specificati in una riga, come in una tabella di verità.
+                La prima linea elenca i segnali di ingresso e uscita. Sotto di essa, i valori di ingresso da applicare e i valori di uscita
+                da controllare sono specificati in una riga, come in una tavola di verità.
                 In questo esempio però, 512 righe sono richieste. Inserire queste righe sarebbe un processo tedioso e potrebbe
-                portare ad errori. Risulta più facile ed affidabile generare automaticamente queste linee.
+                portare a errori. Risulta più facile e affidabile generare automaticamente queste linee.
                 A questo scopo, le variabili <e>A</e> e <e>B</e> sono entrambe fatte iterare da 0 a 15. I rispettivi valori sono poi
                 assegnati agli ingressi "A[n]" e "B[n]". Si controlla poi l'uscita del circuito corrispondente ad <e>A+B</e>.
                 Si controlla anche se il bit di riporto è stato impostato, ovvero se <e>A+B+1</e> è risultato.
-                I dettagli della sintassi del test case sono forniti dalla finestra di dialogo dell'aiuto.
+                I dettagli della sintassi del caso di collaudo sono forniti dalla finestra di dialogo dell'aiuto.
             </par>
             <par>
                 Se un circuito è incorporato all'interno di un altro, soltanto il nome del file del sottocircuito è memorizzato nel circuito,
                 non lo stesso circuito incorporato. Di conseguenza, durante la simulazione i file dei sottocircuiti devono essere localizzabili
-                dal simulatore. Per evitare problemi di amministrazione dei percorsi importati, una insolita strategia è stata adottata.
+                dal simulatore. Per evitare problemi di amministrazione dei percorsi importati, un'insolita strategia è stata adottata.
             </par>
             <par>
                 Solo i nomi del file di un circuito incorporato sono memorizzati all'interno di un file di circuito, non il
@@ -214,12 +216,12 @@
         </subchapter>
     </chapter>
     <chapter heading="Simulazione">
-        <subchapter heading="Ritardo di Propagazione">
+        <subchapter heading="Ritardo di propagazione">
             <par>
                 Durante la simulazione ogni porta logica ha un ritardo di propagazione. Ogni componente trovato nella libreria ha lo stesso
                 ritardo di propagazione indipendentemente dalla sua complessità.
                 La porta AND ha quindi lo stesso ritardo di un moltiplicatore.
-                Le uniche eccezioni sono i diodi, interruttori e splitter che sono usati per creare bus dati.
+                Le uniche eccezioni sono diodi, interruttori e separatori che sono usati per creare bus dati.
                 Questi componenti non hanno alcun ritardo di propagazione.
             </par>
             <par>
@@ -238,15 +240,15 @@
         </subchapter>
     </chapter>
     <chapter heading="Analisi">
-        <subchapter heading="Analisi e Sintesi dei Circuiti">
+        <subchapter heading="Analisi e sintesi dei circuiti">
             <par>
-                Un circuito può essere analizzato tramite la voce di menù <e>Analisi</e>. Una tabella di verità è generata
-                per circuiti puramente combinatori. Questa tabella di verità può essere modificata a piacere. Un nuovo circuito
-                può essere generato a partire da questa tabella di verità modificata.
+                Un circuito può essere analizzato tramite la voce di menù <e>Analisi</e>. Una tavola di verità è generata
+                per circuiti puramente combinatori. Questa tavola di verità può essere modificata a piacere. Un nuovo circuito
+                può essere generato a partire da questa tavola di verità modificata.
             </par>
             <par>
                 In aggiunta a circuiti puramente combinatori, è anche possibile analizzare o generare circuiti sequenziali.
-                Anziché una semplice tabella di verità, una tabella di transizione di stato è creata.
+                Anziché una semplice tavola di verità, una tabella di transizione di stato è creata.
                 Ogni flip-flop quindi appare nel lato degli ingressi e uscite della tabella di transizione degli stati.
                 In questa tabella, nel lato destro si trovano gli stati successivi, a cui si effettuerà la transizione al
                 prossimo segnale di clock. Lo stato successivo dipende dallo stato corrente del flip-flop, come specificato
@@ -256,8 +258,8 @@
                 La seguente convenzione di nomenclatura si applica: lo stato successivo di un bit nel lato destro della tabella
                 è indicato come "n+1". Il corrispondente stato corrente è indicato con un suffisso "n". Se c'è una variabile
                 di stato "A", "An" indica lo stato corrente e "An+1" indica lo stato successivo.
-                Se, nella tabella di verità sul lato destro e sinistro, sono presenti dei segnali che corrispondono a questa
-                descrizione, si assume che la tabella di verità sia una tabella di transizione e quindi un circuito sequenziale
+                Se, nella tavola di verità sul lato destro e sinistro, sono presenti dei segnali che corrispondono a questa
+                descrizione, si assume che la tavola di verità sia una tabella di transizione e quindi un circuito sequenziale
                 è generato al posto di uno combinatorio.
             </par>
             <par>
@@ -272,10 +274,10 @@
                 poi un circuito.
             </par>
         </subchapter>
-        <subchapter heading="Grafici di Stato">
+        <subchapter heading="Grafici di stato">
             <par>
                 Un editor per i grafici di stato è disponibile tramite la voce di menù <e>Macchina a Stati Finiti</e>.
-                Consente la creazione garfica di macchine a stati disegnando stati e transizioni. Di conseguenza, uscite
+                Consente la creazione grafica di macchine a stati disegnando stati e transizioni. Di conseguenza, uscite
                 differenti possono essere impostate in stati differenti.
                 Fornendo le transizioni con condizioni, i segnali di ingresso possono essere generati. Impostando i
                 valori di uscita nelle transizioni, un automa di Mealy può essere definito.
@@ -291,7 +293,7 @@
     <chapter heading="Hardware">
         <subchapter heading="GAL16v8 e GAL22v10">
             <par>
-                Nel menù di generazione del circuito nella tabella di verità ci sono anche funzioni per generare i 
+                Nel menù di generazione del circuito nella tavola di verità ci sono anche funzioni per generare i 
                 cosiddetti file JEDEC. Questo è un formato speciale che descrive la mappa dei fusibili di un PLD.
                 Questo file JEDEC può essere scritto in un corrispondente PLD utilizzando un programmatore speciale.
                 Al momento, circuiti del tipo <e>GAL16v8</e> e <e>GAL22v10</e> o compatibili con dispositivi a mappa di fusibili
@@ -315,7 +317,7 @@
                 <a href="https://www.microchip.com/design-centers/programmable-logic/spld-cpld/cpld-atf15xx-family">
                     <e>ATF150x</e>
                 </a>
-                nel sistema utilizzando una interfaccia JTAG. Una scheda di valutazione compatibile
+                nel sistema utilizzando un'interfaccia JTAG. Una scheda di valutazione compatibile
                 <a href="https://www.microchip.com/DevelopmentTools/ProductDetails.aspx?PartNO=ATF15XX-DK3-U">
                     (<e>ATF15XX-DK3-U</e>)
                 </a>
@@ -327,7 +329,7 @@
             </par>
             <par>
                 Sfortunatamente, i dettagli della mappa a fusibili non sono pubblicamente disponibili quindi nessun
-                fitter per questo circuito può essere integrato in Digital, come è possibile con circuiti <e>GAL16v8</e> and <e>GAL22v10</e>.
+                fitter per questo circuito può essere integrato in Digital, come è possibile con circuiti <e>GAL16v8</e> e <e>GAL22v10</e>.
             </par>
             <par>
                 Quindi, i fitter <e>fit150[x].exe</e> forniti da ATMEL devono essere utilizzati. Questi programmi creano un file
@@ -351,16 +353,16 @@
                 è disponibile dal sito ATMEL/Microchip. Sui sistemi Linux, i fitter possono essere eseguiti da Digital se <e>wine</e> è installato.
             </par>
         </subchapter>
-        <subchapter heading="Esportare a VHDL o Verilog">
+        <subchapter heading="Esportare in VHDL o Verilog">
             <par>
                 Un circuito può essere esportato in VHDL o Verilog. Un file viene generato e contiene la descrizione completa del
-                circuito. Il codice VHDL generato è stato testato con <a
+                circuito. Il codice VHDL generato è stato controllato con <a
                     href="https://www.xilinx.com/products/design-tools/vivado.html">Xilinx Vivado</a>
-                e il simulatore VHDL open-source <a href="http://ghdl.free.fr/">ghdl</a>. Il codice Verilog è invece stato testato
+                e il simulatore VHDL open-source <a href="http://ghdl.free.fr/">ghdl</a>. Il codice Verilog è invece stato controllato
                 con il simulatore Verilog <a href="http://iverilog.icarus.com/">Icarus Verilog</a>.
             </par>
             <par>
-                Se un circuito contiene dei test case, i dati di test possono essere usati per generare una test bench HDL. Questa
+                Se un circuito contiene dei casi di collaudo, i dati di collaudo possono essere usati per generare un banco di collaudo HDL. Questa
                 può essere usata per verificare la corretta funzionalità del circuito nella simulazione HDL.
             </par>
             <par>
@@ -400,7 +402,7 @@
             </par>
         </subchapter>
     </chapter>
-    <chapter heading="Figure Personalizzate">
+    <chapter heading="Figure personalizzate">
         <par>
             Anche se Digital ha alcune opzioni che modificano l'aspetto di un circuito quando viene incorporato in un altro,
             in alcuni casi è utile utilizzare una figura specifica per un particolare sottocircuito. Un esempio è la
@@ -408,9 +410,9 @@
             figure speciali per un circuito.
         </par>
         <par>
-            Digital non fornisce un editor per creare una figura. Anzi, una piccoola digressione è richiesta per capire come
+            Digital non fornisce un editor per creare una figura. Anzi, una piccola digressione è richiesta per capire come
             creare le figure del circuito: prima di tutto, il circuito che deve essere rappresentato da una figura particolare
-            deve essere aperti. Successivamente un template SVG viene creato per questo circuito. Nel template, il circuito
+            deve essere aperto. Successivamente un template SVG viene creato per questo circuito. Nel template, il circuito
             è rappresentato da un semplice rettangolo. Questo contiene anche tutti i pin del circuito, rappresentati dai
             pallini blu (ingressi) e da quelli rossi (uscite). Per vedere quale pallino appartiene a quale pin, bisogna guardare
             all'ID del pallino nelle proprietà dell'oggetto. Questo ID ha la forma <e>pin:[nome]</e> o <e>pin+:[nome]</e>.
@@ -431,14 +433,14 @@
             sono estratte e memorizzate nel circuito. Per un uso successivo del circuito, il file SVG non è più richiesto.
         </par>
         <par>
-            Una importante nota: SVG è un format molto potente e flessibile. Questo può essere utilizzato per descrivere grafiche estremamente
+            Un'importante nota: SVG è un formato molto potente e flessibile. Questo può essere utilizzato per descrivere grafiche estremamente
             complesse. L'importazione in Digital non sarà in grado di riconoscere tutti i tipi di grafica SVG senza errori. Se un file non può
             essere importato, è utile fare un po' di sperimentazione per capire quale componente grafico possa causare dei problemi.
         </par>
     </chapter>
-    <chapter heading="Circuiti Generici">
+    <chapter heading="Circuiti generici">
         <par>
-            Si consideri un circuito che vada incorporato all'interno di un altro ed utilizzato in vari modi.
+            Si consideri un circuito che vada incorporato all'interno di un altro e utilizzato in vari modi.
             Per esempio, si può immaginare un particolare contatore che è necessario abbia differente numero di bit.
             Se uno deve creare un circuito per 4, 5 e 6 bit ciascuno, la manutenzione del circuito diventa molto
             difficile nel futuro mano a mano che nuove configurazioni sono aggiunte.
@@ -446,9 +448,9 @@
         <par>
             Per prevenire ciò, un sottocircuito generico può essere parametrizzato e creato.
             A questo scopo, la spunta "Il circuito è generico" deve essere impostata nelle impostazioni specifiche del
-            circuito stesso. Come conseguenza, ogni finestra di dialogo per le proprietà di un compoente del circuito
+            circuito stesso. Come conseguenza, ogni finestra di dialogo per le proprietà di un componente del circuito
             conterrà il campo aggiuntivo "parametrizzazione generica". In questo campo si può inserire del codice che cambia i
-            parametri del componente. Ogni parametro ha un nome e può essere modificato come un attibuto del campo
+            parametri del componente. Ogni parametro ha un nome e può essere modificato come un attributo del campo
             <e>this</e>. Ogni parametro può essere individuato nella finestra di dialogo di aiuto per quanto riguarda
             il componente.
             Se si vuole cambiare la larghezza di bit di un sommatore, per esempio, la linea <e>this.Bits=1;</e> può essere usata.
@@ -467,7 +469,7 @@
         </par>
         <par>
             Non è possibile avviare direttamente un circuito generico visto che gli argomenti richiesti sono mancanti;
-            devono essere specificati nel circuito incorporante. Questi argomenti mancanti porterebbero ad errori.
+            devono essere specificati nel circuito incorporante. Questi argomenti mancanti porterebbero a errori.
             Per semplificare la verifica del circuito quindi, il componente <e>Inizializzazione Generica</e> può essere
             aggiunto al circuito. In questo componente si possono impostare gli argomenti generici che dovrebbero
             provenire dal circuito incorporante. In questo modo, un circuito generico può essere simulato direttamente.
@@ -500,33 +502,33 @@
             iniziale fino a quando il numero richiesto di bit del contatore è raggiunto.
         </par>
     </chapter>
-    <chapter heading="Verifica Controllata da Script">
+    <chapter heading="Verifica controllata da script">
         <par>
-            Se gli strudenti devono completare esercizi con Digital, potrebbe essere utile verificare i circuiti consegnati
+            Se gli studenti devono completare esercizi con Digital, potrebbe essere utile verificare i circuiti consegnati
             dagli studenti tramite un processo automatico. Per effettuare questa verifica, Digital può essere avviato dalla
             linea di comando. La chiamata funziona in questo modo:
         </par>
         <par>
             <code>
-                java -cp Digital.jar CLI test [file da verificare] [-tests [file opzionale con i test case]]
+                java -cp Digital.jar CLI test [file da verificare] [-tests [file opzionale con i casi di collaudo]]
             </code>
         </par>
         <par>
-            Se solo il file con il test è specificato, i test case contenuti in esso sono eseguiti. In questo modo, i test case
+            Se solo il file con il collaudo è specificato, i casi di collaudo contenuti in esso sono eseguiti. In questo modo, i casi di collaudo
             creati dagli studenti stessi possono essere verificati.
         </par>
         <par>
-            Se un secondo file è specificato, i test case sono presi da questo secondo file e vengono controllati rispetto ai
-            test case del file del circuito. Il secondo file contiene quindi di solito una soluzione di esempio i cui test
-            case sonno completi e corretti. Il circuito contenuto nel secondo file è ignorato. Soltanto i test case vengono
+            Se un secondo file è specificato, i casi di collaudo sono presi da questo secondo file e vengono controllati rispetto ai
+            casi di collaudo del file del circuito. Il secondo file contiene quindi di solito una soluzione di esempio i cui casi di
+            collaudo sono completi e corretti. Il circuito contenuto nel secondo file è ignorato. Soltanto i casi di collaudo vengono
             presi da esso.
         </par>
         <par>
-            Per verificare un circuito con una soluzione di esempio, il nome dei segnali di ingresso e uscita devono corrispondere
+            Per verificare un circuito con una soluzione di esempio, i nomi dei segnali di ingresso e uscita devono corrispondere
             in entrambi i circuiti.
         </par>
     </chapter>
-    <chapter heading="FAQ">
+    <chapter heading="Domande frequenti">
         <faq>
             <question>Come spostare un cavo?</question>
             <answer>Seleziona uno dei terminali con la selezione rettangolare. Sposta poi il punto utilizzando il mouse.
@@ -549,9 +551,9 @@
             <answer>Un pin è connesso al cavo solo se il cavo ha un terminale al pin.</answer>
         </faq>
         <faq>
-            <question>Se il nome dei pin in un circuito sono lunghi, i nomi non sono più leggibili quando il circuito
+            <question>Se i nomi dei pin in un circuito sono lunghi, i nomi non sono più leggibili quando il circuito
                 diventa incorporato. Cosa posso fare?</question>
-            <answer>La larghezza del blocco può essere aumentata con la voce del menù<e>Modifica<arrow/>Impostazioni specifiche del circuito</e>.</answer>
+            <answer>La larghezza del blocco può essere aumentata con la voce del menù <e>Modifica<arrow/>Impostazioni specifiche del circuito</e>.</answer>
         </faq>
         <faq>
             <question>I pin nel circuito non hanno un ordine ottimale. Come posso cambiarlo?</question>
@@ -561,31 +563,31 @@
 
         <faq>
             <question>Quando la simulazione è avviata, un cavo diventa grigio. Che cosa significa?</question>
-            <answer>I colori verde chiaro e scure indicano gli stati alto e basso. Il cavo grigio indica alta impedenza.
+            <answer>I colori verde chiaro e scuro indicano gli stati alto e basso. Il cavo grigio indica alta impedenza.
             </answer>
         </faq>
         <faq>
-            <question>Ho una tabella di verità. Come calcolo le equazioni booleane minimizzate?</question>
-            <answer>Nel menù <e>Analisi</e> seleziona la voce <e>Sintesi</e>. Inserisci quindi la tabella di verità. Nella parte
-            in basse della finestra puoi trovare le equazioni booleane. Se inserisci più di una variabile dipendente, una nuova
+            <question>Ho una tavola di verità. Come calcolo le equazioni booleane minimizzate?</question>
+            <answer>Nel menù <e>Analisi</e> seleziona la voce <e>Sintesi</e>. Inserisci quindi la tavola di verità. Nella parte
+            in basso della finestra puoi trovare le equazioni booleane. Se inserisci più di una variabile dipendente, una nuova
             finestra si apre per mostrare tutte le equazioni.
             </answer>
         </faq>
         <faq>
-            <question>Ho inserito una tabella di verità, ma ci sono più equazioni mostrate. Quale di esse è corretta?
+            <question>Ho inserito una tavola di verità, ma ci sono più equazioni mostrate. Quale di esse è corretta?
             </question>
             <answer>Minimizzare un'equazione booleana può risultare in molte equazioni che descrivono la stessa funzione. Digital le mostra tutte
-                visto che creano la stessa tabella di verità. Ci potrebbero essere delle differenze a seconda dei "don't care" nella tabella di verità.
+                visto che creano la stessa tavola di verità. Ci potrebbero essere delle differenze a seconda dei "don't care" nella tavola di verità.
             </answer>
         </faq>
         <faq>
-            <question>Ho una tabella di verità. Come creo il circuito corrispondente?</question>
-            <answer>Nel menù <e>Analisi</e> seleziona la voce <e>Sintesi</e>. Inserisci quindi la tabella di verità. Puoi modificare la tabella usando i menù <e>Nuovo</e> o <e>Modifica</e>.
+            <question>Ho una tavola di verità. Come creo il circuito corrispondente?</question>
+            <answer>Nel menù <e>Analisi</e> seleziona la voce <e>Sintesi</e>. Inserisci quindi la tavola di verità. Puoi modificare la tabella usando i menù <e>Nuovo</e> o <e>Modifica</e>.
                 Nel menù <e>Crea</e>, puoi creare un circuito utilizzando la voce <e>Circuito</e>.
             </answer>
         </faq>
         <faq>
-            <question>Come modificare un nome di un segnale nella tabella di verità?</question>
+            <question>Come modificare un nome di un segnale nella tavola di verità?</question>
             <answer>Click destro nell'intestazione della tabella per modificare il nome.</answer>
         </faq>
         <faq>
@@ -594,9 +596,9 @@
             </answer>
         </faq>
         <faq>
-            <question>Come creare una tabella di verità da un'espressione booleana?</question>
-            <answer>Nel menù <e>Analisi</e> seleziona la voce <e>Espressioni</e>. Inserisci poi l'espressione.
-                Crea quindi il circuito e nel menù <e>Analisi</e> usa la voce <e>Analisi</e> per creare la tabella di verità.
+            <question>Come creare una tavola di verità da un'espressione booleana?</question>
+            <answer>Nel menù <e>Analisi</e> seleziona la voce <e>Espressione</e>. Inserisci poi l'espressione.
+                Crea quindi il circuito e nel menù <e>Analisi</e> usa la voce <e>Analisi</e> per creare la tavola di verità.
             </answer>
         </faq>
         <faq>
@@ -607,7 +609,7 @@
         </faq>
         <faq>
             <question>Quando creo un file JEDEC, come faccio ad assegnare un numero di pin ad un certo segnale?</question>
-            <answer>Nei corrispondenti ingressi ed uscite puoi inserire un numero di pin nella finestra di dialogo delle impostazioni del pin.</answer>
+            <answer>Nei corrispondenti ingressi e uscite puoi inserire un numero di pin nella finestra di dialogo delle impostazioni del pin.</answer>
         </faq>
         <faq>
             <question>Ho creato un file JEDEC. Come faccio a programmarlo in un <e>GAL16v8</e> o <e>GAL22v10</e>?
@@ -622,27 +624,27 @@
             </answer>
         </faq>
     </chapter>
-    <chapter heading="Comandi da Tastiera" newpage="true">
+    <chapter heading="Comandi da tastiera" newpage="true">
         <shortcuts>
-            <shortcut key="Spazio">Avvia o ferma la simulazione</shortcut>
-            <shortcut key="F6">Apre il dialogo della tabella di misurazione.</shortcut>
-            <shortcut key="F7">Esegui fino all'interruzione..</shortcut>
-            <shortcut key="F8">Esegui i test case.</shortcut>
+            <shortcut key="Spazio">Avvia o arresta la simulazione.</shortcut>
+            <shortcut key="F6">Apri il dialogo della tabella di misurazione.</shortcut>
+            <shortcut key="F7">Esegui fino all'interruzione.</shortcut>
+            <shortcut key="F8">Esegui i casi di collaudo.</shortcut>
             <shortcut key="C">Esegui un singolo ciclo di clock (funziona solamente se c'è una simulazione in corso e c'è
                 un componente di clock).
             </shortcut>
-            <shortcut key="V">Esegue un singolo passo di porta.</shortcut>
-            <shortcut key="B">Esegue tutti i singoli passi di porta fino a quando il circuito si è stabilizzato o alternativamente,
+            <shortcut key="V">Esegui un singolo passo di porta.</shortcut>
+            <shortcut key="B">Esegui tutti i singoli passi di porta fino a quando il circuito si è stabilizzato o alternativamente,
                 se c'è un componente di interruzione, fino a quando la si raggiunge.</shortcut>
             <shortcut key="F9">Analisi del circuito.</shortcut>
             <shortcut key="CTRL-A">Seleziona tutto.</shortcut>
             <shortcut key="CTRL-X">Taglia i componenti selezionati nella clipboard.</shortcut>
             <shortcut key="CTRL-C">Copia i componenti selezionati nella clipboard.</shortcut>
-            <shortcut key="CTRL-V">Inserisce i componenti dalla clipboard.</shortcut>
+            <shortcut key="CTRL-V">Inserisci i componenti dalla clipboard.</shortcut>
             <shortcut key="CTRL-D">Duplica la selezione corrente senza modificare la clipboard.</shortcut>
             <shortcut key="R">Quando si sta inserendo, ruota il componente.</shortcut>
-            <shortcut key="L">Inserisce l'ultimo componente inserito un'altra volta.</shortcut>
-            <shortcut key="T">Inserisce un tunnel.</shortcut>
+            <shortcut key="L">Inserisci l'ultimo componente inserito un'altra volta.</shortcut>
+            <shortcut key="T">Inserisci un tunnel.</shortcut>
             <shortcut key="CTRL-N">Nuovo circuito.</shortcut>
             <shortcut key="CTRL-O">Apri un circuito.</shortcut>
             <shortcut key="CTRL-S">Salva il circuito.</shortcut>
@@ -651,14 +653,14 @@
             <shortcut key="P">Programma un diodo o FGFET.</shortcut>
             <shortcut key="D">Mentre si disegna un cavo, cambia alla modalità diagonale.</shortcut>
             <shortcut key="F">Mentre si disegna una linea, inverte l'orientazione.</shortcut>
-            <shortcut key="S">Divide un cavo in due cavi.</shortcut>
-            <shortcut key="Esc">Interrompe l'azione corrente.</shortcut>
-            <shortcut key="Canc">Rimuove il componente selezionato.</shortcut>
-            <shortcut key="Backspace">Rimuove i componenti selezionati.</shortcut>
+            <shortcut key="S">Spezza un cavo in due cavi.</shortcut>
+            <shortcut key="Esc">Interrompi l'azione corrente.</shortcut>
+            <shortcut key="Canc">Rimuovi il componente selezionato.</shortcut>
+            <shortcut key="Backspace">Rimuovi i componenti selezionati.</shortcut>
             <shortcut key="+">Aumenta il numero di ingressi nel componente su cui il cursore è sopra. Se utilizzato con delle costanti,
                 il valore è incrementato.
             </shortcut>
-            <shortcut key="-">Diminuisce il numero di ingressi nel componente su cui il cursore è sopra. Se utilizzato con delle costanti,
+            <shortcut key="-">Diminuisci il numero di ingressi nel componente su cui il cursore è sopra. Se utilizzato con delle costanti,
                 il valore è decrementato.
             </shortcut>
             <shortcut key="CTRL +">Incrementa lo zoom.</shortcut>

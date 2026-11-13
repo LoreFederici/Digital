@@ -52,6 +52,6 @@ public class CreateCHN implements ExpressionToFileExporter.PostProcess {
 
     @Override
     public String getName() {
-        return Lang.get("msg_create CHNFile");
+        return Lang.get("msg_createCHNFile");
     }
 }

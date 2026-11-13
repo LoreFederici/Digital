@@ -1,10 +1,34 @@
 <?xml version='1.0' encoding='utf-8'?>
 <mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
     <mime-type type="text/x-digital">
-        <comment>Digital file</comment>
-	    <comment xml:lang="en">Digital Circuit</comment>
-	    <comment xml:lang="de">Digital Schaltung</comment>
-	    <comment xml:lang="es">Circuito Digital</comment>
+        <comment>Digital Circuit</comment>
+        <comment xml:lang="ar">دائرة رقمية</comment>
+        <comment xml:lang="ca">Circuit digital</comment>
+        <comment xml:lang="da">Digitalt kredsløb</comment>
+        <comment xml:lang="de">Digitalschaltung</comment>
+        <comment xml:lang="el">Ψηφιακό κύκλωμα</comment>
+        <comment xml:lang="en">Digital Circuit</comment>
+        <comment xml:lang="es">Circuito digital</comment>
+        <comment xml:lang="fa">مدار رقمی</comment>
+        <comment xml:lang="fr">Circuit numérique</comment>
+        <comment xml:lang="he">מעגל דיגיטלי</comment>
+        <comment xml:lang="hi">डिजिटल सर्किट</comment>
+        <comment xml:lang="hu">Digitális áramkör</comment>
+        <comment xml:lang="it">Circuito digitale</comment>
+        <comment xml:lang="ja">デジタル回路</comment>
+        <comment xml:lang="ko">디지털 회로</comment>
+        <comment xml:lang="nl">Digitale schakeling</comment>
+        <comment xml:lang="pl">Układ cyfrowy</comment>
+        <comment xml:lang="pt">Circuito digital</comment>
+        <comment xml:lang="ro">Circuit digital</comment>
+        <comment xml:lang="ru">Цифровая схема</comment>
+        <comment xml:lang="sv">Digital krets</comment>
+        <comment xml:lang="th">วงจรดิจิตอล</comment>
+        <comment xml:lang="tr">Dijital devre</comment>
+        <comment xml:lang="uk">Цифрова схема</comment>
+        <comment xml:lang="vi">Mạch kỹ thuật số</comment>
+        <comment xml:lang="zh">数字电路</comment>
+        <comment xml:lang="zh_TW">数位电路</comment>
         <glob pattern="*.dig"/>
     </mime-type>
 </mime-info>

@@ -20,7 +20,7 @@ public class TestResult implements TestResultListener {
     private final ValueTable results;
     private int passedCount;
     private int failedCount;
-    private boolean toManyResults;
+    private boolean tooManyResults;
     private int visibleRows;
     private int rowCount;
 
@@ -58,7 +58,7 @@ public class TestResult implements TestResultListener {
             visibleRows++;
             results.add(new TestRow(res, testRow.getDescription()).setRow(rowCount));
         } else
-            toManyResults = true;
+            tooManyResults = true;
         rowCount++;
     }
 
@@ -72,7 +72,7 @@ public class TestResult implements TestResultListener {
                 r[in.getIndex()] = new Value(in.getValue());
             results.add(new TestRow(r, description)).omitInTable();
         } else
-            toManyResults = true;
+            tooManyResults = true;
     }
 
 
@@ -89,8 +89,8 @@ public class TestResult implements TestResultListener {
      *
      * @return true if there are missing items in the results list.
      */
-    public boolean toManyResults() {
-        return toManyResults;
+    public boolean tooManyResults() {
+        return tooManyResults;
     }
 
     /**

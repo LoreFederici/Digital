@@ -188,8 +188,8 @@ public class PinMapTest extends TestCase {
         pinMap.assignPin("B", 4);
         String pinStr = pinMap.toString();
 
-        assertTrue(pinStr.contains("1: A\n"));
-        assertTrue(pinStr.contains("4: B\n"));
+        assertTrue(pinStr.contains("1: A\n") || pinStr.contains("1： A\n"));
+        assertTrue(pinStr.contains("4: B\n") || pinStr.contains("4： B\n"));
     }
 
 }

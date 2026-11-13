@@ -258,14 +258,14 @@ public class Splitter implements Element {
                             add(new Port(bits, Integer.decode(strVal)));
                     }
                 } catch (RuntimeException e) {
-                    throw new BitsException(Lang.get("err_spitterDefSyntaxError", definition));
+                    throw new BitsException(Lang.get("err_splitterDefSyntaxError", definition));
                 }
             }
             if (ports.isEmpty())
                 add(new Port(bits, 1));
 
             if (bits > 64)
-                throw new BitsException(Lang.get("err_spitterToManyBits", definition));
+                throw new BitsException(Lang.get("err_splitterTooManyBits", definition));
         }
 
         void checkInputConsistency() throws BitsException {

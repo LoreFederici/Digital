@@ -38,9 +38,9 @@ How the app is created:
 
 - `jpackage` creates `Digital.app` from `target/Digital.jar` and a Java runtime which contains only the modules needed by Digital (as determined by `jdeps`), the EC crypto provider for https and the locale data of the languages supported by Digital. Custom components loaded from jar files can only use these modules; if one needs more, run `Digital.jar` with an installed Java instead.
 - A second launcher `digital-cli` starts the command line interface, the script `digital` chooses between the two launchers.
-- `resources/Info.plist` is used instead of the jpackage template. It declares the `*.dig` document type and the minimum macOS version.
+- `resources/Info.plist` is used instead of the `jpackage template. It declares the `*.dig` document type and the minimum macOS version.
 - Double clicks in the Finder are not passed to the application as command line arguments but as an "open files" event. It is handled by `src/main/java/de/neemann/digital/gui/MacOSOpenFilesHandler.java`.
-- `Digital.icns` and `digital-doc.icns` are the macOS app and document icons. Their sources are `Digital.svg` and `digital-doc.svg` in this folder.
+- `Digital.icns` and `Assets.car` provide the macOS application icon, compiled from `Digital.icon`. The document icon for `*.dig` files is dynamically rendered at runtime by macOS (`iconservicesd`) from `DigitalCircuitDocumentBackground` (in `Assets.car`, sourced from `DigitalCircuitDocument.png`) and the system-generated folded page template with the `DIG` extension badge.
 
 ## Checking the origin of a disk image
 
