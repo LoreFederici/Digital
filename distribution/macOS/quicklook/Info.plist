@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "https://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>CFBundleDevelopmentRegion</key>
+    <string>en</string>
+    <key>CFBundleDisplayName</key>
+    <string>DigitalQuickLook</string>
+    <key>CFBundleExecutable</key>
+    <string>DigitalQuickLook</string>
+    <key>CFBundleIdentifier</key>
+    <string>de.neemann.digital.quicklook</string>
+    <key>CFBundleInfoDictionaryVersion</key>
+    <string>6.0</string>
+    <key>CFBundleName</key>
+    <string>DigitalQuickLook</string>
+    <key>CFBundlePackageType</key>
+    <string>XPC!</string>
+    <key>CFBundleShortVersionString</key>
+    <string>DIGITAL_VERSION</string>
+    <key>CFBundleSupportedPlatforms</key>
+    <array>
+        <string>MacOSX</string>
+    </array>
+    <key>CFBundleVersion</key>
+    <string>DIGITAL_VERSION</string>
+    <key>LSMinimumSystemVersion</key>
+    <string>12.0</string>
+    <key>NSExtension</key>
+    <dict>
+        <key>NSExtensionAttributes</key>
+        <dict>
+            <key>QLIsDataBasedPreview</key>
+            <true/>
+            <key>QLSupportedContentTypes</key>
+            <array>
+                <string>de.neemann.digital.dig</string>
+                <string>de.neemann.digital.gui.dig</string>
+                <string>com.neemann.digital.circuit</string>
+                <string>dyn.ah62d4rv4ge8043p2</string>
+                <string>dyn.ah62d4rv4ge804550</string>
+                <string>dyn.ah62d4rv4ge8043a</string>
+            </array>
+            <key>QLSupportsSearchableItems</key>
+            <false/>
+        </dict>
+        <key>NSExtensionPointIdentifier</key>
+        <string>com.apple.quicklook.preview</string>
+        <key>NSExtensionPrincipalClass</key>
+        <string>DigitalQuickLook.PreviewProvider</string>
+    </dict>
+</dict>
+</plist>

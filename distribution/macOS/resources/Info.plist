@@ -58,6 +58,7 @@
     <key>LSItemContentTypes</key>
     <array>
      <string>de.neemann.digital.dig</string>
+     <string>de.neemann.digital.gui.dig</string>
     </array>
     <key>CFBundleTypeIconSystemGenerated</key>
     <true/>
@@ -72,6 +73,37 @@
     <string>DIGITAL_DOCUMENT_TYPE</string>
     <key>UTTypeConformsTo</key>
     <array>
+     <string>public.xml</string>
+    </array>
+    <key>UTTypeIcons</key>
+    <dict>
+     <key>UTTypeIconBackgroundName</key>
+     <string>DigitalCircuitDocumentBackground</string>
+     <key>UTTypeIconBadgeName</key>
+     <string>DigitalCircuitDocumentBadge</string>
+     <key>UTTypeIconText</key>
+     <string>DIG</string>
+    </dict>
+    <key>UTTypeTagSpecification</key>
+    <dict>
+     <key>public.filename-extension</key>
+     <array>
+      <string>dig</string>
+     </array>
+     <key>public.mime-type</key>
+     <array>
+      <string>text/x-digital</string>
+     </array>
+    </dict>
+   </dict>
+   <dict>
+    <key>UTTypeIdentifier</key>
+    <string>de.neemann.digital.gui.dig</string>
+    <key>UTTypeDescription</key>
+    <string>DIGITAL_DOCUMENT_TYPE</string>
+    <key>UTTypeConformsTo</key>
+    <array>
+     <string>de.neemann.digital.dig</string>
      <string>public.xml</string>
     </array>
     <key>UTTypeIcons</key>

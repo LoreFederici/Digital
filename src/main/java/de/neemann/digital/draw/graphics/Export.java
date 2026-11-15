@@ -24,6 +24,7 @@ public class Export {
     private final Circuit circuit;
     private final ExportFactory factory;
     private final boolean hideTests;
+    private final int padding;
 
     /**
      * Creates a new instance
@@ -32,7 +33,7 @@ public class Export {
      * @param factory the factory to create the graphics instance
      */
     public Export(Circuit circuit, ExportFactory factory) {
-        this(circuit, factory, false);
+        this(circuit, factory, false, 0);
     }
 
     /**
@@ -43,9 +44,22 @@ public class Export {
      * @param hideTests if true tests are hidden
      */
     public Export(Circuit circuit, ExportFactory factory, boolean hideTests) {
+        this(circuit, factory, hideTests, 0);
+    }
+
+    /**
+     * Creates a new instance with padding
+     *
+     * @param circuit   the circuit to export
+     * @param factory   the factory to create the graphics instance
+     * @param hideTests if true tests are hidden
+     * @param padding   padding around components
+     */
+    public Export(Circuit circuit, ExportFactory factory, boolean hideTests, int padding) {
         this.circuit = circuit;
         this.factory = factory;
         this.hideTests = hideTests;
+        this.padding = padding;
     }
 
     /**
@@ -77,7 +91,13 @@ public class Export {
             circuit.drawTo(minMax, hideTests);
 
             if (minMax.isValid()) {
-                gr.setBoundingBox(minMax.getMin(), minMax.getMax());
+                VectorInterface min = minMax.getMin();
+                VectorInterface max = minMax.getMax();
+                if (padding > 0) {
+                    min = min.sub(new Vector(padding, padding));
+                    max = max.add(new Vector(padding, padding));
+                }
+                gr.setBoundingBox(min, max);
 
                 GraphicLineCollector glc = new GraphicLineCollector();
                 circuit.drawTo(glc, hideTests);

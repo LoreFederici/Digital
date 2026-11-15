@@ -1691,6 +1691,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
 
             // requests the circuit modified state, so place it behind circuitComponent.setCircuit(circuit);
             setFilename(filename, toPref);
+            QuickLookCache.onLoadAsync(filename, circuit);
 
             ensureModelIsStopped();
             windowPosManager.closeAll();
@@ -1705,6 +1706,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     private void saveFile(File filename, boolean toPrefs) {
         try {
             circuitComponent.save(filename);
+            QuickLookCache.onSaveAsync(filename, circuitComponent.getCircuit());
             ensureModelIsStopped();
             setFilename(filename, toPrefs);
 
@@ -2181,6 +2183,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             setMacCopyPasteTo(UIManager.get("TextField.focusInputMap"));
             setMacCopyPasteTo(UIManager.get("TextArea.focusInputMap"));
             MacOSOpenFilesHandler.register();
+            QuickLookCache.cleanUpCacheAsync();
         }
 
         File file = null;
